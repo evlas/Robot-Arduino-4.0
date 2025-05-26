@@ -30,6 +30,7 @@ void Pattern_Mow_Spirals() {
 
   Get_Compass_Reading();  // mantiene attiva la bussola
 
+#ifdef I2C_MOTORS
   if (Spiral_Mow == 1) {
     Wire.beginTransmission(ADDR_SX_MOTOR);
     Wire.write(PWM_MaxSpeed_LH);
@@ -47,7 +48,16 @@ void Pattern_Mow_Spirals() {
     Wire.beginTransmission(ADDR_SX_MOTOR);
     Wire.write(PWM_MaxSpeed_LH);
     Wire.endTransmission();
-  }
+  };
+#endif
+#ifdef BTS7960_MOTORS
+  if (Spiral_Mow == 1) analogWrite(ENBPin, PWM_MaxSpeed_LH);
+  if (Spiral_Mow == 2) analogWrite(ENAPin, PWM_MaxSpeed_RH);
+  if (Spiral_Mow == 3) {
+    analogWrite(ENAPin, PWM_MaxSpeed_RH);
+    analogWrite(ENBPin, PWM_MaxSpeed_LH);
+  };
+#endif
 
   if (Spiral_Mow < 3) {
 
@@ -59,6 +69,7 @@ void Pattern_Mow_Spirals() {
     if (Spiral_Mow == 3) lcd.print("|");
 
     if (Loop_Cycle_Mowing < End_Linking) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_MaxSpeed_RH);
@@ -68,13 +79,19 @@ void Pattern_Mow_Spirals() {
         Wire.beginTransmission(ADDR_SX_MOTOR);
         Wire.write(PWM_MaxSpeed_LH);
         Wire.endTransmission();
-      }
+      };
+#endif
+#ifdef BTS7960_MOTORS
+      if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_MaxSpeed_RH);
+      if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_MaxSpeed_LH);
+#endif
 
       lcd.print("|");
     }
 
     //Spirale interna
     if ((Loop_Cycle_Mowing >= End_Linking) && (Loop_Cycle_Mowing < End_Spiral_1)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_1);
@@ -85,11 +102,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_1);
         Wire.endTransmission();
       };
+#endif
+#ifdef BTS7960_MOTORS
+      if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_1);
+      if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_1);
+#endif
       lcd.print("1");
     }
 
     // Anello spirale 2
     if ((Loop_Cycle_Mowing >= End_Spiral_1) && (Loop_Cycle_Mowing < End_Spiral_2)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_2);
@@ -100,11 +123,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_2);
         Wire.endTransmission();
       };
+#endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_2);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_2);
+#endif
       lcd.print("2");
     }
 
     // Anello spirale 3
     if ((Loop_Cycle_Mowing >= End_Spiral_2) && (Loop_Cycle_Mowing < End_Spiral_3)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_3);
@@ -115,11 +144,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_3);
         Wire.endTransmission();
       };
+#endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_3);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_3);
+#endif
       lcd.print("3");
     }
 
     // Anello spirale 4
     if ((Loop_Cycle_Mowing >= End_Spiral_3) && (Loop_Cycle_Mowing < End_Spiral_4)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_4);
@@ -130,11 +165,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_4);
         Wire.endTransmission();
       };
+#endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_4);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_4);
+#endif
       lcd.print("4");
     }
 
     // Anello spirale 5
     if ((Loop_Cycle_Mowing >= End_Spiral_4) && (Loop_Cycle_Mowing < End_Spiral_5)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_5);
@@ -145,11 +186,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_5);
         Wire.endTransmission();
       };
+    #endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_5);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_5);
+#endif
       lcd.print("5");
     }
 
     // Anello spirale 6
     if ((Loop_Cycle_Mowing >= End_Spiral_5) && (Loop_Cycle_Mowing < End_Spiral_6)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_6);
@@ -160,11 +207,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_6);
         Wire.endTransmission();
       };
+#endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_6);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_6);
+#endif
       lcd.print("6");
     }
 
     // Anello spirale 7
     if ((Loop_Cycle_Mowing >= End_Spiral_6) && (Loop_Cycle_Mowing < End_Spiral_7)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_7);
@@ -175,12 +228,17 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_7);
         Wire.endTransmission();
       };
-      ;
+#endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_7);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_7);
+#endif
       lcd.print("7");
     }
 
     // Il tagliaerba si sposta in una nuova posizione
     if ((Loop_Cycle_Mowing >= End_Spiral_7) && (Loop_Cycle_Mowing < Max_Cycles_Spirals)) {
+#ifdef I2C_MOTORS
       if (Spiral_Mow == 1) {
         Wire.beginTransmission(ADDR_DX_MOTOR);
         Wire.write(PWM_MaxSpeed_RH);
@@ -191,6 +249,11 @@ void Pattern_Mow_Spirals() {
         Wire.write(PWM_MaxSpeed_LH);
         Wire.endTransmission();
       };
+#endif
+#ifdef BTS7960_MOTORS
+    if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_MaxSpeed_RH);
+    if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_MaxSpeed_LH);
+#endif
       lcd.print("X");
     }
   }

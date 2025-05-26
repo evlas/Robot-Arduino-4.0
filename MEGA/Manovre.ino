@@ -7,7 +7,7 @@
 
 
 // Sposta il tosaerba in avanti nel giardino e attiva le funzioni della bussola se abilitate
-void Manouver_Mow_The_Grass() {
+void Maneuver_Mow_The_Grass() {
 
   Motor_Action_Spin_Blades();
   SetPins_ToGoForwards();
@@ -140,7 +140,7 @@ void Manouver_Mow_The_Grass() {
     Serial.println(F("Loop Cycle at Max"));
     Serial.println("");
     Motor_Action_Stop_Spin_Blades();  // Stop the blades from spinning
-    Manouver_Turn_Around();
+    Maneuver_Turn_Around();
     targetHeading = Compass_Heading_Degrees;  // Turn around the mower
     Loop_Cycle_Mowing = 0;                    // Restes the loop cycle to start again.
     lcd.clear();
@@ -157,7 +157,7 @@ void Manouver_Mow_The_Grass() {
 // Turn Around definisce come deve reagire il tagliaerba quando viene attivato un cavo o un sensore sonar.
 // Ora con il taglio a spirale si decide anche la logica di quale forma a spirale sarà la prossima
 
-void Manouver_Turn_Around() {
+void Maneuver_Turn_Around() {
   Motor_Action_Stop_Motors();
   if (Outside_Wire == 1) Serial.println(F("Il tagliaerba è fuori dal cavo"));
   if (Wheel_Blocked == 4) Serial.println(F("Le ruote del tagliaerba sono inceppate"));
@@ -245,7 +245,7 @@ void Manouver_Turn_Around() {
 
 
 
-void Manouver_Turn_Around_Sonar() {
+void Maneuver_Turn_Around_Sonar() {
   Motor_Action_Stop_Motors();
   delay(500);
   SetPins_ToGoBackwards();
@@ -300,7 +300,7 @@ void Manouver_Turn_Around_Sonar() {
   Check_Sonar_Sensors();
 }
 
-void Manouver_Manual_Mode() {
+void Maneuver_Manual_Mode() {
   Mower_Docked = 0;
   Mower_Parked = 0;
   Mower_Running = 0;
@@ -316,7 +316,7 @@ void Manouver_Manual_Mode() {
 }
 
 
-void Manouver_Start_Mower() {
+void Maneuver_Start_Mower() {
   Mower_Docked = 0;
   Mower_Parked = 0;
   Mower_Running = 1;
@@ -332,7 +332,7 @@ void Manouver_Start_Mower() {
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
 }
 
-void Manouver_Mower_Exit_Dock() {
+void Maneuver_Mower_Exit_Dock() {
 
   Mower_Docked = 0;
   Mower_Parked = 0;
@@ -345,7 +345,7 @@ void Manouver_Mower_Exit_Dock() {
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
 }
 
-void Manouver_Dock_The_Mower() {
+void Maneuver_Dock_The_Mower() {
   Mower_Docked = 1;
   Mower_Parked = 0;
   Mower_Running = 0;
@@ -367,7 +367,7 @@ void Manouver_Dock_The_Mower() {
 }
 
 // Il tagliaerba è una posizione parcheggiata e necessita di ricarica manuale
-void Manouver_Park_The_Mower_Low_Batt() {
+void Maneuver_Park_The_Mower_Low_Batt() {
 
   Mower_Docked = 0;
   Mower_Parked = 0;
@@ -383,7 +383,7 @@ void Manouver_Park_The_Mower_Low_Batt() {
 
 
 // Il tagliaerba è in una pozione parcheggiata o in pausa pronto per il riavvio
-void Manouver_Park_The_Mower() {
+void Maneuver_Park_The_Mower() {
 
   if (Mower_Parked == 0) lcd.clear();
   Mower_Docked = 0;
@@ -407,7 +407,7 @@ void Manouver_Park_The_Mower() {
   //if (Alarm_3_Repeat == 0) Alarm_3_ON = 0;
 }
 
-void Manouver_Hibernate_Mower() {
+void Maneuver_Hibernate_Mower() {
 
   Mower_Docked = 0;
   Mower_Parked = 1;  // Prima era 0   03/08/2022
@@ -425,7 +425,7 @@ void Manouver_Hibernate_Mower() {
 }
 
 // Il rasaerba viene inviato alla stazione di ricarica dopo il rilevamento di bassi voltaggi o l'inserimento di una chiave a membrana.
-void Manouver_Go_To_Charging_Station() {
+void Maneuver_Go_To_Charging_Station() {
   Mower_Docked = 0;
   Mower_Parked = 0;
   Mower_Running = 0;
@@ -449,16 +449,16 @@ void Manouver_Go_To_Charging_Station() {
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
   if ((Compass_Activate == 1) && (Mower_Parked == 0)) Compass_Turn_Mower_To_Home_Direction();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
-  if (Mower_Parked == 0) Manouver_Find_Wire_Track();
+  if (Mower_Parked == 0) Maneuver_Find_Wire_Track();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
   if ((Mower_Parked == 0) && (No_Wire_Found_Fwd == 0)) Track_Perimeter_Wire_To_Dock();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
-  if (No_Wire_Found_Fwd == 1) Manouver_Go_To_Charging_Station();
+  if (No_Wire_Found_Fwd == 1) Maneuver_Go_To_Charging_Station();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
 }
 
 // Il rasaerba viene inviato alla stazione di ricarica dopo il rilevamento di bassi voltaggi o l'inserimento di una chiave a membrana se gira attorno ad un'aiuola.
-void Manouver_Go_To_Charging_Station_2() {
+void Maneuver_Go_To_Charging_Station_2() {
   Mower_Docked = 0;
   Mower_Parked = 0;
   Mower_Running = 0;
@@ -480,21 +480,21 @@ void Manouver_Go_To_Charging_Station_2() {
   Turn_On_Relay();
   delay(500);
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
-  if (Mower_Parked == 0) Manouver_Find_Wire_Track();
+  if (Mower_Parked == 0) Maneuver_Find_Wire_Track();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
   if ((Mower_Parked == 0) && (No_Wire_Found_Fwd == 0)) Track_Perimeter_Wire_To_Dock();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
-  if (No_Wire_Found_Fwd == 1) Manouver_Go_To_Charging_Station();
+  if (No_Wire_Found_Fwd == 1) Maneuver_Go_To_Charging_Station();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
 }
 
 
-void Manouver_Exit_To_Zone_X() {
+void Maneuver_Exit_To_Zone_X() {
   // Zone 1 or Zone 2 and the Wire itterations are set on the Membrane Buttons.
   // These values are then crried into the following functions.
   Turn_On_Relay();
   delay(1000);
-  Manouver_Mower_Exit_Dock();
+  Maneuver_Mower_Exit_Dock();
   Special_Exit_From_Docking_Station();  // Move the Mower into position backing out of the docking station
   if (Perimeter_Wire_Enabled == 1) {
     Mower_Track_To_Exit = 1;
@@ -502,36 +502,36 @@ void Manouver_Exit_To_Zone_X() {
     delay(50);
     if (Wire_Detected == 1) {
       if (WIFI_Enabled == 1) Get_WIFI_Commands();
-      Manouver_Find_Wire_Track_Exit();  // Located the boundary wire
+      Maneuver_Find_Wire_Track_Exit();  // Located the boundary wire
       if (WIFI_Enabled == 1) Get_WIFI_Commands();
       if (Mower_Parked == 0) Track_Wire_From_Dock_to_Zone_X();
       if (WIFI_Enabled == 1) Get_WIFI_Commands();
       if (Mower_Parked == 0) Special_Move_Into_Garden_Zone_X();
       if (WIFI_Enabled == 1) Get_WIFI_Commands();
-      if (Mower_Parked == 0) Manouver_Start_Mower();
+      if (Mower_Parked == 0) Maneuver_Start_Mower();
       if (WIFI_Enabled == 1) Get_WIFI_Commands();
-      if (Mower_Parked == 1) Manouver_Park_The_Mower();
+      if (Mower_Parked == 1) Maneuver_Park_The_Mower();
     }
     if (Wire_Detected == 0) {
       TestforBoundaryWire();     // Test again for the boundary wire
       if (Wire_Detected == 0) {  // if its still saying the wire is off then park the mower.
         Serial.println("");
         Serial.println(F("Perimeter Wire not detected"));
-        Manouver_Park_The_Mower();
+        Maneuver_Park_The_Mower();
       }
     }
   }
   if (Perimeter_Wire_Enabled == 0) {
     Serial.println("");
     Serial.println(F("Perimeter Wire not activated in settings"));
-    Manouver_Park_The_Mower();
+    Maneuver_Park_The_Mower();
   }
 }
 
 
 // Funzione per ritrovare il cavo se il rasaerba perde il cavo durante il taglio
 // 3 al di fuori del filo attiva questa funzione. La funzione sonar e filo viene quindi utilizzata per ritrovare il filo.
-void Manouver_Outside_Wire_ReFind_Function() {
+void Maneuver_Outside_Wire_ReFind_Function() {
   Motor_Action_Stop_Spin_Blades();
   lcd.clear();
   lcd.print("Cercando il Filo");

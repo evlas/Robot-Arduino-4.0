@@ -2,7 +2,7 @@
 // Questo è utile se il tosaerba rileva il filo perimetrale di un'aiuola e non riesce più a seguire il filo del perimetro per tornare alla base di ricarica.
 
 
-void Manouver_Cycles_Max() {
+void Maneuver_Cycles_Max() {
   Serial.println("");
   Serial.println("Loop Cycle at Max");
   Serial.println("");
@@ -19,7 +19,7 @@ void Manouver_Cycles_Max() {
     Motor_Action_Stop_Motors;        // Stop
     delay(2000);
     lcd.clear();
-    Manouver_Go_To_Charging_Station_2();
+    Maneuver_Go_To_Charging_Station_2();
   }
 
   if (CW_Tracking_To_Start == 1) {  // Uscita dal Garage in senso Orario
@@ -29,6 +29,6 @@ void Manouver_Cycles_Max() {
     Motor_Action_Stop_Motors;       // Stop
     delay(2000);
     lcd.clear();
-    Manouver_Go_To_Charging_Station_2();
+    Maneuver_Go_To_Charging_Station_2();
   }
 }

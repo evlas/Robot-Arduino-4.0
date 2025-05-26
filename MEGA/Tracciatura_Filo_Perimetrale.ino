@@ -294,7 +294,7 @@ void Track_Wire_From_Dock_to_Zone_X() {
     Check_Bumper();
     if ((Bump_Frnt_LH == true) || (Bump_Frnt_RH == true)) {
       Compass_Turn_Mower_To_Home_Direction();  // Nuova aggiunta 15/06/2024
-      Manouver_Find_Wire_Track();
+      Maneuver_Find_Wire_Track();
     }
   }
 
@@ -450,7 +450,7 @@ void Track_Perimeter_Wire_To_Dock() {
       }
       Serial.print(F(" : MAG_Error="));
       Serial.print(MAG_Error);
-      Read_Nano();
+      Read_Sensors();
       Check_if_Charging();
       Check_if_Docked();
       Dock_Cycles = Dock_Cycles + 1;
@@ -461,7 +461,7 @@ void Track_Perimeter_Wire_To_Dock() {
         if (WIFI_Enabled == 1) Get_WIFI_Commands();
         Dock_Cycles = 0;
       }
-      if (Loop_Cycle_Mowing == Cycles_Max) Manouver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
+      if (Loop_Cycle_Mowing == Cycles_Max) Maneuver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
     }
 
     Loop_Cycle_Mowing = 0;
@@ -577,7 +577,7 @@ void Track_Perimeter_Wire_To_Dock() {
       }
       Serial.print(F(" : MAG_Error="));
       Serial.print(MAG_Error);
-      Read_Nano();
+      Read_Sensors();
       Check_if_Charging();
       Check_if_Docked();
       Dock_Cycles = Dock_Cycles + 1;
@@ -588,7 +588,7 @@ void Track_Perimeter_Wire_To_Dock() {
         if (WIFI_Enabled == 1) Get_WIFI_Commands();
         Dock_Cycles = 0;
       }
-      if (Loop_Cycle_Mowing == Cycles_Max) Manouver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
+      if (Loop_Cycle_Mowing == Cycles_Max) Maneuver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
     }
 
     Loop_Cycle_Mowing = 0;
@@ -640,7 +640,7 @@ void Tracking_Restart_Blocked_Path() {
     Tracking_Wire = 0;
     if (WIFI_Enabled == 1) Get_WIFI_Commands();  // TX and RX data from NodeMCU
     if (Compass_Activate == 1) Compass_Turn_Mower_To_Home_Direction();
-    Manouver_Find_Wire_Track();
+    Maneuver_Find_Wire_Track();
     //Track_Perimeter_Wire_To_Dock();
   }
 }

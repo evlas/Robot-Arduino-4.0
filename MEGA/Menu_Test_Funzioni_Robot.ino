@@ -234,7 +234,7 @@ void Activate_Menu_Option_Testing() {
     Menu_Complete = false;
     while (Menu_Complete == false) {
       Read_Membrane_Keys();
-      Read_Nano();
+      Read_Sensors();
       delay(100);
       Serial.print(F("  Charging:"));
       Serial.print(Charging);
@@ -311,7 +311,7 @@ void Activate_Menu_Option_Testing() {
     Menu_Mode_Selection = 0;
     delay(3000);
     lcd.clear();
-    Manouver_Go_To_Charging_Station();
+    Maneuver_Go_To_Charging_Station();
   }
 
 

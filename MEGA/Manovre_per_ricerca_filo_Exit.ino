@@ -1,4 +1,4 @@
-void Manouver_Find_Wire_Track_Exit() {
+void Maneuver_Find_Wire_Track_Exit() {
 
 
   Serial.println(F("Find Wire Track Function Activated"));
@@ -237,12 +237,12 @@ void Manouver_Find_Wire_Track_Exit() {
     delay(1000);
     Abort_Wire_Find = 0;
     SetPins_ToGoForwards();
-    Manouver_Park_The_Mower();
+    Maneuver_Park_The_Mower();
     }
 */
   if (No_Wire_Found_Fwd == 1) {
     Serial.println("Re-starting wire find");
     SetPins_ToGoForwards();
-    Manouver_Find_Wire_Track();
+    Maneuver_Find_Wire_Track();
   }
 }

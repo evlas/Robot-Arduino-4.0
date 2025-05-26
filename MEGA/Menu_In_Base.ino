@@ -128,7 +128,7 @@ void Activate_Menu_Option_Docked() {
       Blade_Override = 1;
       Exit_Zone = 1;
       Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-      Manouver_Exit_To_Zone_X();
+      Maneuver_Exit_To_Zone_X();
     }
   }
 
@@ -150,7 +150,7 @@ void Activate_Menu_Option_Docked() {
       Blade_Override = 1;
       Exit_Zone = 2;
       Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-      Manouver_Exit_To_Zone_X();
+      Maneuver_Exit_To_Zone_X();
     }
   }
 
@@ -160,7 +160,7 @@ void Activate_Menu_Option_Docked() {
     Print_Membrane_Switch_Input_Timing();  // Changes the menu to select the mow time
     Menu_Mode_Selection = 0;
     delay(1000);
-    if (Mow_Time_Set == 1) Manouver_Start_Mower();
+    if (Mow_Time_Set == 1) Maneuver_Start_Mower();
     lcd.clear();
   }
 
@@ -178,8 +178,8 @@ void Activate_Menu_Option_Docked() {
       Blade_Override = 1;
       Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;  // Prima = 5000
       Exit_Zone = 3;
-      Manouver_Exit_To_Zone_X();
-      Manouver_Start_Mower();  // Sets up the mower to go.
+      Maneuver_Exit_To_Zone_X();
+      Maneuver_Start_Mower();  // Sets up the mower to go.
     }
   }
 

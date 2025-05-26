@@ -114,7 +114,7 @@ void Execute_MQTT_Command_To_Mower() {
       Blade_Override = 1;
       Exit_Zone = 1;
       Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-      Manouver_Exit_To_Zone_X();
+      Maneuver_Exit_To_Zone_X();
     }
   }
 
@@ -133,8 +133,8 @@ void Execute_MQTT_Command_To_Mower() {
       lcd.print("Avvio");
       Tracking_Wire = 0;
       Mower_Running = 1;
-      Manouver_Mow_The_Grass();
-      Manouver_Start_Mower();
+      Maneuver_Mow_The_Grass();
+      Maneuver_Start_Mower();
       lcd.clear();
     } else {
       Serial.println(F("Mower Docked - Quick Start not possible"));
@@ -155,7 +155,7 @@ void Execute_MQTT_Command_To_Mower() {
     Motor_Action_Stop_Motors();
     delay(1000);
     lcd.clear();
-    Manouver_Go_To_Charging_Station();
+    Maneuver_Go_To_Charging_Station();
   }
 
   // Esegui il comando "Pause/Stop" (comando 11)
@@ -166,7 +166,7 @@ void Execute_MQTT_Command_To_Mower() {
     Serial.println(F("|Pause/Stop"));
     Motor_Action_Stop_Spin_Blades();
     Motor_Action_Stop_Motors();
-    Manouver_Park_The_Mower();
+    Maneuver_Park_The_Mower();
     val_WIFI = 0;  // Reset per eseguire il comando solo una volta
   }
 
@@ -176,10 +176,10 @@ void Execute_MQTT_Command_To_Mower() {
     Serial.print(F("WIFI Command: "));
     Serial.print(val_WIFI);
     Serial.println(F("|Manual Mode"));
-    Manouver_Park_The_Mower();
+    Maneuver_Park_The_Mower();
     delay(1000);
     Tracking_Wire = 0;  //Nuova agiunta 02/04/25
-    Manouver_Manual_Mode();
+    Maneuver_Manual_Mode();
     Turn_On_Relay();
     val_WIFI = 0;  // Reset per eseguire il comando solo una volta
   }
@@ -197,11 +197,11 @@ void Execute_MQTT_Command_To_Mower() {
     delay(200);
     lcd.clear();
     // if (Mower_Running == 0) {
-    //   Manouver_Park_The_Mower();
+    //   Maneuver_Park_The_Mower();
     //   Turn_On_Relay();
     // }
     Manual_Mode = 0;
-    Manouver_Park_The_Mower();
+    Maneuver_Park_The_Mower();
     Pattern_Mow = 0;
     val_WIFI = 0;  // Reset per eseguire il comando solo una volta
   }

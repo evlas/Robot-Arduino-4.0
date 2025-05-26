@@ -59,7 +59,7 @@ void Test_Wheel_Amps() {
   SetPins_ToGoForwards();
   Motor_Action_Go_Full_Speed();
   for (int i = 0; i <= 100; i++) {
-    Read_Nano();
+    Read_Sensors();
     Calculate_Wheel_Amps();
     Test_Check_Wheel_Amps();
     Serial.println("");
@@ -397,7 +397,7 @@ void Test_Compass_Turn_Function() {
   SetPins_ToGoForwards();
   Motor_Action_Go_Full_Speed();
   delay(2000);
-  Manouver_Turn_Around();
+  Maneuver_Turn_Around();
   Turn_To_Compass_Heading();
   SetPins_ToGoForwards();
   Motor_Action_Go_Full_Speed();

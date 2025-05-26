@@ -4,9 +4,12 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <EEPROM.h>
+#include <INA226_WE.h>
 #include "drivers.h"
 #include "adcman.h"
 #include "perimeter.h"
+
+#include <gps.h>
 
 //Libraries for Real Time Clock
 #include <stdio.h>
@@ -58,20 +61,52 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define Minus_Key 52  // Pulsante -
 #define Stop_Key 53   // Pulsante Stop
 
+//#define BTS7960_MOTORS
+#ifdef BTS7960_MOTORS
+//Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
+//Motore DX
+#define ENAPin 7                // PIN L_EN + R_EN  
+#define IN1Pin 6                // PIN RPWM
+#define IN2Pin 5                // PIN LPWM
+//Motore SX
+#define ENBPin 2                // PIN L_EN + R_EN
+#define IN3Pin 4                // PIN LPWM
+#define IN4Pin 3                // PIN RPWM
+#endif
+
+#define I2C_MOTORS
+#ifdef I2C_MOTORS
 //Setup for the wheel Motor Controller Configurazione per il controller dei driver motori
 //Motore DX
 #define ADDR_DX_MOTOR 0x8
 //Motore SX
 #define ADDR_SX_MOTOR 0x9
+#endif
 
+//#define BTS7960_BLADES
+#ifdef BTS7960_BLADES
+//Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
+//Motore Lama
+#define RPWM 8
+#define L_EN 9
+#define R_EN 10
+#endif
+
+#define I2C_BLADES
+#ifdef I2C_BLADES
 //Motore Lama
 #define NUM_BLADE 2
 #define ADDR_BLADE_MOTOR 0xA
 #define ADDR_BLADE_MOTOR 0xB
 #define ADDR_BLADE_MOTOR 0xC
+#endif
 
 //Relay Switch
 #define Relay_Motors 24
+
+#define ADDR_NANO 0x7
+#define ADDR_INA226 0x40
+INA226_WE ina226 = INA226_WE(ADDR_INA226);
 
 //Variabili globali
 
