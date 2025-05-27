@@ -1,6 +1,5 @@
 void Maneuver_Find_Wire_Track() {
 
-
   Serial.println(F("Find Wire Track Function Activated"));
   lcd.clear();
   lcd.print("Ricerca Filo...  ");

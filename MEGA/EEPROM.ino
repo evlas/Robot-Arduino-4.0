@@ -70,7 +70,6 @@ void Load_EEPROM_Saved_Data() {
     if (Alarm_3_Action == 5) Serial.println("Custom");
   }
 
-
   Alarm_4_Saved_EEPROM = EEPROM.read(130);
 
   if (Alarm_4_Saved_EEPROM == 1) {
@@ -91,7 +90,6 @@ void Load_EEPROM_Saved_Data() {
     if (Alarm_4_Action == 4) Serial.println("Quick Start");
     if (Alarm_4_Action == 5) Serial.println("Custom");
   }
-
 
   Alarm_5_Saved_EEPROM = EEPROM.read(135);
 
@@ -114,7 +112,6 @@ void Load_EEPROM_Saved_Data() {
     if (Alarm_5_Action == 5) Serial.println("Custom");
   }
 
-
   Alarm_6_Saved_EEPROM = EEPROM.read(140);
 
   if (Alarm_6_Saved_EEPROM == 1) {
@@ -135,8 +132,6 @@ void Load_EEPROM_Saved_Data() {
     if (Alarm_6_Action == 4) Serial.println("Quick Start");
     if (Alarm_6_Action == 5) Serial.println("Custom");
   }
-
-
 
   PWM_LEFT_EEPROM = EEPROM.read(13);
   if (PWM_LEFT_EEPROM == 1) {
@@ -174,7 +169,6 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(Slow_Speed_MAG);
   }
 
-
   PWM_BLADE_EEPROM = EEPROM.read(17);
   if (PWM_BLADE_EEPROM == 1) {
     PWM_Blade_Speed = EEPROM.read(18);
@@ -199,7 +193,6 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(P);
   }
 
-
   Pattern_Mow_EEPROM = EEPROM.read(23);
   if (Pattern_Mow_EEPROM == 1) {
     Pattern_Mow = EEPROM.read(24);
@@ -209,7 +202,6 @@ void Load_EEPROM_Saved_Data() {
     if (Pattern_Mow == 3) Serial.println(F("ON Spiral"));
   }
 
-
   Minimum_Volt_EEPROM = EEPROM.read(25);
   if (Minimum_Volt_EEPROM == 1) {
     Battery_Min = EEPROM.read(26);
@@ -217,7 +209,6 @@ void Load_EEPROM_Saved_Data() {
     Serial.print(F("Minimum Battery Voltage set from EEPROM : "));
     Serial.println(Battery_Min);
   }
-
 
   Compass_Home_EEPROM = EEPROM.read(27);
   if (Compass_Home_EEPROM == 1) {
@@ -233,7 +224,6 @@ void Load_EEPROM_Saved_Data() {
     if (Tip_Safety == 0) Serial.println(F("OFF"));
     if (Tip_Safety == 1) Serial.println(F("ON"));
   }
-
 
   Mower_Turn_Delay_Min_EEPROM = EEPROM.read(31);
   if (Mower_Turn_Delay_Min_EEPROM == 1) {
@@ -304,7 +294,6 @@ void Load_EEPROM_Saved_Data() {
     if (Compass_Activate == 1) Serial.println(F("ON"));
   }
 
-
   CW_Tracking_To_Charge_EEPROM = EEPROM.read(49);
   if (CW_Tracking_To_Charge_EEPROM == 1) {
     CW_Tracking_To_Charge = EEPROM.read(50);
@@ -344,7 +333,6 @@ void Load_EEPROM_Saved_Data() {
     Serial.print(F("Straight Line Cycles before turn: "));
     Serial.println(Max_Cycles_Straight);
   }
-
 
   Compass_Heading_Hold_Enabled_EEPROM = EEPROM.read(59);
   if (Compass_Heading_Hold_Enabled_EEPROM == 1) {
@@ -446,14 +434,12 @@ void Load_EEPROM_Saved_Data() {
     if (Cutting_Blades_Activate == 1) Serial.println(F("ON"));
   }
 
-
   Low_Battery_Instances_Chg_EEPROM = EEPROM.read(85);
   if (Low_Battery_Instances_Chg_EEPROM == 1) {
     Low_Battery_Instances_Chg = EEPROM.read(86);
     Serial.print(F("Battery to Charge Sensitivoty from EEPROM : "));
     Serial.println(Low_Battery_Instances_Chg);
   }
-
 
   Bumper_Activate_Frnt_EEPROM = EEPROM.read(90);
   if (Bumper_Activate_Frnt_EEPROM == 1) {
@@ -488,7 +474,6 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(Track_Wire_Zone_3_Cycles);
   }
 
-
   Cycles_Max_EEPROM = EEPROM.read(123);
   if (Cycles_Max_EEPROM == 1) {
     Cycles_Max = EEPROM.read(124);
@@ -504,7 +489,6 @@ void Load_EEPROM_Saved_Data() {
     Serial.print(F("Boost Time = "));
     Serial.println(Hard_Track_Turn_Delay);
   }
-
 
   PWM_LEFT_EEPROM = EEPROM.read(125);
   if (PWM_LEFT_EEPROM == 1) {
@@ -546,8 +530,6 @@ void Load_EEPROM_Saved_Data() {
   }
 
   Serial.println(F(""));
-
-
 
   Serial.println(F("*************************"));
   delay(500);

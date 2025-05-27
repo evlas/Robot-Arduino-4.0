@@ -1,11 +1,6 @@
 // Le manovre sono un insieme di funzioni di movimento o azioni motorie che vengono chiamate regolarmente
 // e.g. Turn the mower around
 
-
-
-
-
-
 // Sposta il tosaerba in avanti nel giardino e attiva le funzioni della bussola se abilitate
 void Maneuver_Mow_The_Grass() {
 
@@ -90,8 +85,6 @@ void Maneuver_Mow_The_Grass() {
 
   }  // end of statements for == 3
 
-
-
   // In base alle impostazioni sopra, il tagliaerba continuerà a tagliare con le seguenti azioni
   if (Loop_Cycle_Mowing > 3) {
 
@@ -147,13 +140,6 @@ void Maneuver_Mow_The_Grass() {
   }
 }
 
-
-
-
-
-
-
-
 // Turn Around definisce come deve reagire il tagliaerba quando viene attivato un cavo o un sensore sonar.
 // Ora con il taglio a spirale si decide anche la logica di quale forma a spirale sarà la prossima
 
@@ -200,7 +186,6 @@ void Maneuver_Turn_Around() {
     }
   }
 
-
   // Decidere casualmente se il tagliaerba deve girare a sinistra oa destra a seconda che il ciclo del ciclo sia pari o dispari
   if ((Loop_Cycle_Mowing % 2) == 0) {
     SetPins_ToTurnRight();
@@ -243,8 +228,6 @@ void Maneuver_Turn_Around() {
   lcd.clear();
 }
 
-
-
 void Maneuver_Turn_Around_Sonar() {
   Motor_Action_Stop_Motors();
   delay(500);
@@ -265,8 +248,6 @@ void Maneuver_Turn_Around_Sonar() {
     Check_Sonar_Sensors();
   }
 
-
-
   if (distance3 < maxdistancesonar) {  // Se il Sonar 3 DX legge gira a SX
     lcd.setCursor(0, 8);
     lcd.print("<-- Gira a SX   ");
@@ -276,7 +257,6 @@ void Maneuver_Turn_Around_Sonar() {
     Motor_Action_Stop_Motors();
     Check_Sonar_Sensors();
   }
-
 
   if (distance2 < maxdistancesonar && distance3 < maxdistancesonar) {  // Se il Sonar 2 SX legge gira a DX
     lcd.setCursor(0, 8);
@@ -288,7 +268,6 @@ void Maneuver_Turn_Around_Sonar() {
     Motor_Action_Stop_Motors();
     Check_Sonar_Sensors();
   }
-
 
   Motor_Action_Stop_Motors();
   delay(500);
@@ -314,7 +293,6 @@ void Maneuver_Manual_Mode() {
   Motor_Action_Stop_Spin_Blades();
   if (WIFI_Enabled == 1) Get_WIFI_Commands();
 }
-
 
 void Maneuver_Start_Mower() {
   Mower_Docked = 0;

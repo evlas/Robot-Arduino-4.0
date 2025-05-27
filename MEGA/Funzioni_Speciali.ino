@@ -60,8 +60,6 @@ void Special_Exit_From_Docking_Station() {
   }
 }
 
-
-
 void Specials_Find_Wire_Track() {
 
   Serial.println("");

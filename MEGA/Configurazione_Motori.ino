@@ -202,7 +202,6 @@ void Motor_Action_Stop_Motors() {  // I pin del driver motore sono impostati per
   Serial.print(F("Wheel:0FF|"));
 }
 
-
 void SetPins_ToTurnLeft() {  // I pin sono impostati in modo che i motori girino in direzioni opposte
 #ifdef I2C_MOTORS
   char msg1[2], msg2[2];
@@ -225,7 +224,6 @@ void SetPins_ToTurnLeft() {  // I pin sono impostati in modo che i motori girino
 #endif
   Serial.print(F("Wheel:TL_|"));
 }
-
 
 void SetPins_ToTurnRight() {  // I pin sono impostati in modo che i motori girino in direzioni opposte
 #ifdef I2C_MOTORS
@@ -334,14 +332,18 @@ void Controllo_PID_Bussola(float headingAttuale) {
 
   int pwmLeft = constrain(baseSpeed - correzione, 0, 255);
   int pwmRight = constrain(baseSpeed + correzione, 0, 255);
-
+#ifdef I2C_MOTORS
   Wire.beginTransmission(ADDR_DX_MOTOR);
   Wire.write(pwmRight);
   Wire.endTransmission();
   Wire.beginTransmission(ADDR_SX_MOTOR);
   Wire.write(pwmLeft);
   Wire.endTransmission();
-
+#endif
+#ifdef BTS7960_MOTORS
+  analogWrite(ENAPin, pwmRight);
+  analogWrite(ENBPin, pwmLeft);
+#endif
   Serial.print(F("PID|H:"));
   Serial.print(headingAttuale);
   Serial.print(F("|Err:"));

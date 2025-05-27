@@ -22,7 +22,6 @@ void Prepare_Mower_from_Settings() {
     Mower_Running = 0;
   }
 
-
   if (Use_Charging_Station == 0) {
     Mower_Docked = 0;
     Mower_Parked = 1;
@@ -32,7 +31,6 @@ void Prepare_Mower_from_Settings() {
 
 
 void Setup_Compass() {
-
   if (Compass_Activate == 1) {
     /*Setup Bussola
   *************************************************************************/
@@ -75,8 +73,6 @@ void Setup_Compass() {
       if (Compass_QMC_Sample_Setting == 2) compass.setSamples(QMC5883_SAMPLES_8);
     }
 
-
-
     lcd.setCursor(0, 1);
     lcd.print(F("Fatto!             "));
     delay(500);
@@ -87,7 +83,6 @@ void Setup_Compass() {
     Serial.println(F("Compass Switched off - Select 1 in setup to switch on."));
   }
 }
-
 
 void Setup_Relays() {
   Serial.println(F("Setup Relays"));

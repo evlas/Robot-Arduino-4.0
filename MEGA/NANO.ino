@@ -24,7 +24,7 @@ void Read_Nano() {
     } else Serial.print(F("No Data Received|"));
   }
 
-#else
+#elif (NANO_i2c == true)
 
 
 #endif

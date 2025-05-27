@@ -1,7 +1,6 @@
 // Prova lo schizzo per rilevare la punta del tosaerba e spegnerlo
 // Lama della falciatrice.
 
-
 void Read_X_Y_Values() {
 
   // Recupera i valori grezzi dal magnetometro (non scalato).
@@ -24,8 +23,6 @@ void Read_X_Y_Values() {
   Serial.print("   ");
   //Serial.print(scaled.ZAxis);
 }
-
-
 
 void Compass_Check_Tilt_Angle() {
   Vector mag = compass.readRaw();
@@ -52,8 +49,6 @@ void Compass_Check_Tilt_Angle() {
     delay(10000);
   }
 }
-
-
 
 void Test_Compass_Check_Tip_Angle() {
   Vector mag = compass.readRaw();
@@ -105,7 +100,6 @@ void Test_Compass_Check_Tip_Angle() {
     lcd.print("Level OK");
   }
 }
-
 
 void Calibrate_Compass_Angle() {
   float Calb_Total_X = 0;

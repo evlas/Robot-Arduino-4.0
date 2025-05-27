@@ -2,6 +2,8 @@ void Read_Sensors() {
 #if (NANO_Serial == true)
   Read_Nano();
 #endif
+
+#if (INA226_SENSOR == true)
   //inserire la parte che legge da nano i2c
   ina226.readAndClearFlags();
 
@@ -18,6 +20,7 @@ void Read_Sensors() {
   }
   Serial.println();
 */
+#endif
 
   Calculate_Volt_Amp_Charge();
 }

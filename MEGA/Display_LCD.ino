@@ -15,7 +15,6 @@ void Setup_Run_LCD_Intro() {
   Serial.println("LCD Setup OK");
 }
 
-
 void Print_Mower_Error() {
   lcd.clear();
   lcd.setCursor(6, 0);  // lcd.setCursor(0,0);
@@ -29,8 +28,6 @@ void Print_Mower_Error() {
     lcd.print(F("Filo non Rilevato"));
   }*/
 }
-
-
 
 void Print_LCD_Volt_Info() {
   lcd.setCursor(10, 0);
@@ -72,7 +69,6 @@ void Print_Cycles_Max_LCD() {
   lcd.setCursor(0, 1);
   lcd.print("SGANCIA AIUOLA");
 }
-
 
 void Print_LCD_Mowing() {
   if (Alarm_Timed_Mow_ON == 0) {
@@ -203,8 +199,6 @@ void Print_LCD_Compass_Home() {
     lcd.print("PIOGGIA");
   }
 }
-
-
 
 void Print_Time_On_LCD() {
   if ((Charge_Detected_MEGA == 0) && (Mower_Running == 0) && (Rain_Detected == 0)) {

@@ -23,7 +23,7 @@ void Init_Serial() {
 }
 
 void Init_Serial_1() {
-  if (NANO_Serial == true) Serial1.begin(1200);  // Aprire la porta seriale 1 per la comunicazione nano
+  if (NANO_serial == true) Serial1.begin(1200);  // Aprire la porta seriale 1 per la comunicazione nano
 }
 
 void Init_Serial_2() {

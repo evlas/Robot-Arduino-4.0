@@ -1,7 +1,6 @@
 // La logica di Cycles Max decide di quanto deve seguire il filo il tagliaerba se gira attorno a un'aiuola
 // Questo è utile se il tosaerba rileva il filo perimetrale di un'aiuola e non riesce più a seguire il filo del perimetro per tornare alla base di ricarica.
 
-
 void Maneuver_Cycles_Max() {
   Serial.println("");
   Serial.println("Loop Cycle at Max");

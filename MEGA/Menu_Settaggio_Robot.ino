@@ -17,12 +17,6 @@ void Print_LCD_Menu_Settings(byte LCD_Menu_Settings) {
   Max_Options_Settings = 10;
 }
 
-
-
-
-
-
-
 void Print_Membrane_Switch_Input_Settings() {
 
   //Menu Options if the Mower is Settings.
@@ -31,13 +25,11 @@ void Print_Membrane_Switch_Input_Settings() {
   Menu_Mode_Selection = 0;
   Menu_View = 0;
 
-
   Serial.println();
   Serial.println(F("Settings Menu Activated"));
   Menu_Complete_Settings = false;  // Menu complete will return to the normal loop
   lcd.clear();
   delay(5);
-
 
   while (Menu_Complete_Settings == false) {  // holds the program in a loop until a selection has been made in the membrane button menu
     if (Menu_View == 0) {

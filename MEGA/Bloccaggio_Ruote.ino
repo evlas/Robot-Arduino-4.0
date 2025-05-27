@@ -13,10 +13,9 @@ void Calculate_Wheel_Amps() {
   Serial.print(F("|"));
 }
 
-
 void Check_Wheel_Amps() {
-  Calculate_Wheel_Amps();
   if (Wheel_Amp_Sensor_ON == 1) {
+    Calculate_Wheel_Amps();
 
     if (WheelAmps >= Max_Wheel_Amps) {
       Wheel_Blocked_Count = Wheel_Blocked_Count + 1;
@@ -42,10 +41,7 @@ void Check_Wheel_Amps() {
   }
 }
 
-
-
 void Test_Check_Wheel_Amps() {
-
   Serial.print(F("   Wheel Amps: "));
   Serial.print(WheelAmps);
   Serial.print(F("   Wheel Blocked Count: "));

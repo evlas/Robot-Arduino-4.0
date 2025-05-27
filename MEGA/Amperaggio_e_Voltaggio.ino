@@ -68,7 +68,7 @@ void Check_if_Docked() {
 }
 
 void Calculate_Volt_Amp_Charge() {
-/*
+#if (NANO_serial == true)
   if (Show_TX_Data == 1) {
     Serial.print(F("Amp:"));
     Serial.print(RawValueAmp);
@@ -94,12 +94,13 @@ void Calculate_Volt_Amp_Charge() {
   VoltageAmp = (RawValueAmp / 1024.0) * 5000;  // Gets you mV
   Amps_Now = ((VoltageAmp - ACSoffset) / mVperAmp);
   Amps = Amps_Now;
+#endif
 
   Serial.print(F("A:"));
   Serial.print(Amps);
   Serial.print(F("|"));
 
-
+#if (NANO_serial == true)
   // Calcola il Voltagio da NANO RX Data
   if (RawValueVolt > 100) {
     float vout = 0.0;
@@ -117,11 +118,12 @@ void Calculate_Volt_Amp_Charge() {
     Zero_Volts = Zero_Volts + 1;
     if (Zero_Volts > 5) Volts = 0;
   }
+#endif
 
   Serial.print(F("V:"));
   Serial.print(Volts);
   Serial.print(F("|"));
-*/
+
   if (Amps <= 0.7) Charging = 0;  //Senza caricabatterie interno era 0.4
   if (Amps > 0.7) Charging = 4;   //Senza caricabatterie interno era 0.4
 }

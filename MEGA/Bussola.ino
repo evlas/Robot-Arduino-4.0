@@ -28,7 +28,6 @@ void Get_Compass_Reading() {
   lcd.print(" ");
 }
 
-
 // Ruota il tosaerba nell'orientamento corretto per il percorso ottimale del cavo perimetrale
 // Evitare di seguire l'intero cavo per tornare alla docking station docking
 void Compass_Turn_Mower_To_Home_Direction() {
@@ -70,7 +69,6 @@ void Compass_Turn_Mower_To_Home_Direction() {
   delay(2000);
   Turn_To_Compass_Heading();
 }
-
 
 void Turn_To_Compass_Heading() {
 
@@ -144,8 +142,6 @@ void Turn_To_Compass_Heading() {
       }
       Compass_Last = Compass_Heading_Degrees;  // sotres the last good compass reading
 
-
-
       delay(100);
       Serial.print("Compass Heading : ");
       Serial.print(Compass_Heading_Degrees);
@@ -176,7 +172,6 @@ void Turn_To_Compass_Heading() {
       lcd.setCursor(0, 1);
       lcd.print(Compass_Heading_Degrees);
       if (WIFI_Enabled == 1) Get_WIFI_Commands();
-
 
       Attemps_Compass_Turn = Attemps_Compass_Turn + 1;
       Serial.print("Atempts:");
@@ -283,14 +278,12 @@ void Turn_To_Compass_Heading() {
   }
 }
 
-
 void Display_Compass_Current_Heading_on_LCD() {
   lcd.setCursor(5, 1);
   lcd.print("    ");
   lcd.print(Compass_Heading_Degrees);
   delay(10);
 }
-
 
 void Calculate_Compass_Wheel_Compensation() {
 
@@ -328,10 +321,6 @@ void Calculate_Compass_Wheel_Compensation() {
     }
     Compass_Steering_Status = 2;
   }
-
-
-
-
 
   if (Compass_Error >= 0) {  // Sterzare a destra
     Serial.print(F("SL|"));

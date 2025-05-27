@@ -9,7 +9,7 @@
 #include "adcman.h"
 #include "perimeter.h"
 
-#include <gps.h>
+//#include <gps.h>
 
 //Libraries for Real Time Clock
 #include <stdio.h>
@@ -61,7 +61,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define Minus_Key 52  // Pulsante -
 #define Stop_Key 53   // Pulsante Stop
 
-//#define BTS7960_MOTORS
+#define BTS7960_MOTORS
 #ifdef BTS7960_MOTORS
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore DX
@@ -74,7 +74,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define IN4Pin 3                // PIN RPWM
 #endif
 
-#define I2C_MOTORS
+//#define I2C_MOTORS
 #ifdef I2C_MOTORS
 //Setup for the wheel Motor Controller Configurazione per il controller dei driver motori
 //Motore DX
@@ -83,7 +83,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define ADDR_SX_MOTOR 0x9
 #endif
 
-//#define BTS7960_BLADES
+#define BTS7960_BLADES
 #ifdef BTS7960_BLADES
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore Lama
@@ -92,7 +92,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define R_EN 10
 #endif
 
-#define I2C_BLADES
+//#define I2C_BLADES
 #ifdef I2C_BLADES
 //Motore Lama
 #define NUM_BLADE 2
@@ -105,6 +105,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define Relay_Motors 24
 
 #define ADDR_NANO 0x7
+
 #define ADDR_INA226 0x40
 INA226_WE ina226 = INA226_WE(ADDR_INA226);
 
@@ -432,8 +433,10 @@ int Max_Spin_Attempts_Exit = 12;  //Rotazione sul filo per uscita dalla base
 char Version[16] = "V1.1";
 
 bool Cutting_Blades_Activate = 1;  // EEPROM            // Attiva le lame e il disco di taglio nel codice
-bool WIFI_Enabled = 0;             // EEPROM            // Attiva le funzioni Wi-Fi
-bool NANO_Serial = 1;              // EEPROM            // Attiva le funzioni seriali per comuniace con NANO altimeti usa I2C
+bool WIFI_Enabled = 1;             // EEPROM            // Attiva le funzioni Wi-Fi
+bool NANO_serial = 1;              // EEPROM            // Attiva le funzioni seriali per comuniare con NANO
+bool NANO_i2c = 0;                 // EEPROM            // Attiva le funzioni seriali per comuniare con NANO 
+bool INA226_Sensor = 0;            // EEPROM            // Attiva le funzioni del sensore di Tensione e Amperaggio a bordo
 bool Perimeter_Wire_Enabled = 1;   // EEPROM            // Attiva l'uso del cavo perimetrale perimetrale
 
 // Stazione Base
@@ -496,7 +499,6 @@ long maxdistancesonar = 40;  //EEPROM            // Distanza in cm dal rasaerba 
 // Paraurti
 bool Bumper_Activate_Frnt = 1;  //EEPROM            // Attiva il paraurti anteriore
 
-
 // Settaggio Motori Ruote
 int Max_Cycles_Straight = 200;    //EEPROM           // Numero di giri che lo Sketch eseguirà prima che il rasaerba si giri comunque. Regola in base alla lunghezza del tuo giardino
 int PWM_MaxSpeed_LH = 230;        //EEPROM           // Velocità in linea retta Ruota sinistra (guardando dal retro del tosaerba) Verrà ignorata se salvata nella EEPROM
@@ -520,7 +522,7 @@ int Mower_Turn_Delay_Min = 400;  //EEPROM            // Min Max Tempo di rotazio
 int Mower_Turn_Delay_Max = 800;  //EEPROM            // Il software seleziona un tempo di svolta casuale tra questi due valori
 int Mower_Reverse_Delay = 400;   //EEPROM            // Valore di retromarcia prima di effettuare una svolta.
 
-bool Wheel_Amp_Sensor_ON = 1;     // Attiva la funzione di misura degli ampere di assorbimento dei motori delle ruote per rilevare se le ruote sono bloccate.
+bool Wheel_Amp_Sensor_ON = 0;     // Attiva la funzione di misura degli ampere di assorbimento dei motori delle ruote per rilevare se le ruote sono bloccate.
 float Max_Wheel_Amps = 2.15;      // Amperaggio massimo consentito nelle ruote prima che venga chiamato un blocco.
 int Wheel_Blocked_Count_Max = 2;  // Numero di volte in cui vengono rilevate le ruote bloccate prima che abbia luogo un'azione inversa.
 

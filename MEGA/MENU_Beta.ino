@@ -1,6 +1,5 @@
 // BETA SETTINGS MENU
 
-
 // Test to displyed on the LCD screen when using the membrane key menus
 void Print_LCD_Menu_BETA(byte LCD_Menu_BETA) {
   if (LCD_Menu_BETA == 1) lcd.print(F("BETA Tip Sensor"));
@@ -8,7 +7,6 @@ void Print_LCD_Menu_BETA(byte LCD_Menu_BETA) {
   if (LCD_Menu_BETA == 3) lcd.print(F("BETA 3"));  // needs writing
   Max_Options_BETA = 3;
 }
-
 
 void Print_Membrane_Switch_Input_BETA() {
   Read_Membrane_Keys();
@@ -63,9 +61,6 @@ void Print_Membrane_Switch_Input_BETA() {
   //Activate_Menu_Option_BETA();
 }
 
-
-
-
 // Code to scroll the menu and print the menu options in the LCD
 void Run_Menu_Order_BETA() {
   if (Menu_View > Max_Options_BETA) Menu_View = Menu_View - 1;
@@ -85,7 +80,6 @@ void Run_Menu_Order_BETA() {
   Serial.println(Menu_Mode_Selection);
   delay(100);
 }
-
 
 // Defines the actions when that option is selected with the keypad.
 void Activate_Menu_Option_BETA() {
