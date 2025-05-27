@@ -37,86 +37,126 @@ void Receive_All_From_MEGA() {
 
 void Update_Home_Assistant_With_Status() {
   JsonDocument discovery;
-  String data;
-
-  discovery["device"]["name"] = "Mower";
-  discovery["device"]["manufacturer"] = "Marco Bedendo";
-  discovery["device"]["model"] = "Mower Sensor";
-  discovery["device"]["identifiers"] = "BedendoMower";
+  String mqtt_data = "";
 
   //control
   discovery["name"] = "control";
-  discovery["object_id"] = "mower_control";
   discovery["unique_id"] = "mower_control";
   discovery["max"] = "255";
   discovery["min"] = "0";
   discovery["mode"] = "text";
+  discovery["component"] = "text";
   discovery["command_topic"] = (String(mqtt_topic_in)).c_str();
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/text").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/text/mower/control/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   // BatteryVoltage
-  discovery["name"] = "battery";
-  discovery["state_topic"] = (String(mqtt_topic_out) + "/battery").c_str();
-  discovery["device_class"] = "battery";
+  discovery["name"] = "Battery";
+  discovery["device_class"] = "voltage";
   discovery["unit_of_measurement"] = "V";
-  discovery["unique_id"] = "mowerbattery";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/battery").c_str(), String(data).c_str());
+  discovery["state_topic"] = (String(mqtt_topic_out) + "/battery").c_str();
+  discovery["unique_id"] = "robotmowerbattery";
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/battery/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   // Loop_Cycle_Mowing
   discovery["name"] = "loop";
   discovery["state_topic"] = (String(mqtt_topic_out) + "/loop").c_str();
-  discovery["device_class"] = "";
-  discovery["unit_of_measurement"] = "";
   discovery["unique_id"] = "mowerloop";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/loop").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/loop/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
+  ;
 
   // Mower_Parked
   discovery["name"] = "parked";
   discovery["state_topic"] = (String(mqtt_topic_out) + "/parked").c_str();
-  discovery["device_class"] = "";
-  discovery["unit_of_measurement"] = "";
   discovery["unique_id"] = "mowerparked";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/parked").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/parked/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   // Mower_Docked
   discovery["name"] = "docked";
   discovery["state_topic"] = (String(mqtt_topic_out) + "/docked").c_str();
-  discovery["device_class"] = "";
-  discovery["unit_of_measurement"] = "";
   discovery["unique_id"] = "mowerdocked";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/docked").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/docked/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   // Mower_Running
   discovery["name"] = "running";
   discovery["state_topic"] = (String(mqtt_topic_out) + "/running").c_str();
-  discovery["device_class"] = "";
-  discovery["unit_of_measurement"] = "";
   discovery["unique_id"] = "mowerrunning";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/running").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/running/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   // Charge_Detected
   discovery["name"] = "charge";
   discovery["state_topic"] = (String(mqtt_topic_out) + "/charge").c_str();
-  discovery["device_class"] = "";
-  discovery["unit_of_measurement"] = "";
   discovery["unique_id"] = "mowercharge";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/charge").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/charge/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   // Tracking_Wire
   discovery["name"] = "tracking";
   discovery["state_topic"] = (String(mqtt_topic_out) + "/tracking").c_str();
-  discovery["device_class"] = "";
-  discovery["unit_of_measurement"] = "";
   discovery["unique_id"] = "mowertracking";
-  serializeJson(discovery, data);
-  client.publish((String(mqtt_topic_discovery) + "/tracking").c_str(), String(data).c_str());
+  discovery["device"]["name"] = "Mower";
+  discovery["device"]["manufacturer"] = "Marco Bedendo";
+  discovery["device"]["model"] = "Mower Sensor";
+  discovery["device"]["identifiers"] = "BedendoMower";
+  serializeJson(discovery, mqtt_data);
+  client.beginPublish((String(mqtt_topic_discovery) + "/sensor/mower/tracking/config").c_str(), mqtt_data.length(), false);
+  client.print(mqtt_data.c_str());
+  client.endPublish();
+  discovery.clear();
 
   client.publish((String(mqtt_topic_out) + "/battery").c_str(), String(BatteryVoltage).c_str());
   client.publish((String(mqtt_topic_out) + "/loop").c_str(), String(Loop_Cycle_Mowing).c_str());

@@ -8,16 +8,16 @@ SoftwareSerial NodeMCU(D2, D3);  // RXD2 TXD3
 #define LED D4
 
 // Credenziali WiFi
-const char* ssid = "FRITZ!Box 7590 WH";
-const char* password = "98337882460903976014";
+const char* ssid = "SSID";
+const char* password = "PASSWORD";
 
 // Dati di connessione MQTT
-const char* mqtt_server = "192.168.178.33";
-const char* mqtt_user = "homeassistant";
-const char* mqtt_password = "eed1aiD1De5aicie7aiyeothuuw1hoobechoow4zahd0dai7wevuo5uokookeiCh";
+const char* mqtt_server = "IP";
+const char* mqtt_user = "USER";
+const char* mqtt_password = "PASSWORD";
 const char* mqtt_topic_in = "home/robot/mower/control";
 const char* mqtt_topic_out = "home/robot/mower/status";
-const char* mqtt_topic_discovery = "homeassistant/sensor/mower";
+const char* mqtt_topic_discovery = "homeassistant";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
