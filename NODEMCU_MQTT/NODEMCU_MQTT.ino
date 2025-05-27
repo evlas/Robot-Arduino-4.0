@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include <ArduinoJson.h>
 #include <SoftwareSerial.h>  // Libreria per MQTT
 
 // Definisci i pin e i parametri
@@ -16,6 +17,7 @@ const char* mqtt_user = "homeassistant";
 const char* mqtt_password = "eed1aiD1De5aicie7aiyeothuuw1hoobechoow4zahd0dai7wevuo5uokookeiCh";
 const char* mqtt_topic_in = "home/robot/mower/control";
 const char* mqtt_topic_out = "home/robot/mower/status";
+const char* mqtt_topic_discovery = "homeassistant/sensor/mower";
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -75,8 +77,6 @@ void setup() {
   Serial.println("");
   pinMode(D2, INPUT);  // RX per ricevere dal Mega
   pinMode(D3, OUTPUT); // TX per inviare al Mega
-
-
   
   setup_wifi();
   client.setServer(mqtt_server, 1883);
