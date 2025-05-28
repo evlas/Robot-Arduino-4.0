@@ -82,9 +82,9 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define PwmDXPin 6                // PIN PWM
 #define PpmDXPin 5                // PIN PPM
 //Motore SX
-#define DirSXPin 2                // PIN Direction
+#define DirSXPin 2                // PIN Direction (Interrupt)
 #define PwmSXPin 4                // PIN PWM
-#define PpmSXPin 3                // PIN PPM
+#define PpmSXPin 3                // PIN PPM       (Interrupt)
 #endif
 
 //#define I2C_MOTORS
