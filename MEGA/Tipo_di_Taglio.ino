@@ -58,7 +58,14 @@ void Pattern_Mow_Spirals() {
     analogWrite(ENBPin, PWM_MaxSpeed_LH);
   };
 #endif
-
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmSXPin, PWM_MaxSpeed_LH);
+  if (Spiral_Mow == 2) analogWrite(PwmDXPin, PWM_MaxSpeed_RH);
+  if (Spiral_Mow == 3) {
+    analogWrite(PwmDXPin, PWM_MaxSpeed_RH);
+    analogWrite(PwmSXPin, PWM_MaxSpeed_LH);
+  };
+#endif
   if (Spiral_Mow < 3) {
 
 
@@ -85,7 +92,10 @@ void Pattern_Mow_Spirals() {
       if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_MaxSpeed_RH);
       if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_MaxSpeed_LH);
 #endif
-
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_MaxSpeed_RH);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_MaxSpeed_LH);
+#endif
       lcd.print("|");
     }
 
@@ -106,6 +116,10 @@ void Pattern_Mow_Spirals() {
 #ifdef BTS7960_MOTORS
       if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_1);
       if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_1);
+#endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_1);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_1);
 #endif
       lcd.print("1");
     }
@@ -128,6 +142,10 @@ void Pattern_Mow_Spirals() {
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_2);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_2);
 #endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_2);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_2);
+#endif
       lcd.print("2");
     }
 
@@ -148,6 +166,10 @@ void Pattern_Mow_Spirals() {
 #ifdef BTS7960_MOTORS
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_3);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_3);
+#endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_3);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_3);
 #endif
       lcd.print("3");
     }
@@ -170,6 +192,10 @@ void Pattern_Mow_Spirals() {
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_4);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_4);
 #endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_4);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_4);
+#endif
       lcd.print("4");
     }
 
@@ -190,6 +216,10 @@ void Pattern_Mow_Spirals() {
 #ifdef BTS7960_MOTORS
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_5);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_5);
+#endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_5);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_5);
 #endif
       lcd.print("5");
     }
@@ -212,6 +242,10 @@ void Pattern_Mow_Spirals() {
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_6);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_6);
 #endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_6);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_6);
+#endif
       lcd.print("6");
     }
 
@@ -233,6 +267,10 @@ void Pattern_Mow_Spirals() {
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_7);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_7);
 #endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_7);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_7);
+#endif
       lcd.print("7");
     }
 
@@ -253,6 +291,10 @@ void Pattern_Mow_Spirals() {
 #ifdef BTS7960_MOTORS
     if (Spiral_Mow == 1) analogWrite(ENAPin, PWM_MaxSpeed_RH);
     if (Spiral_Mow == 2) analogWrite(ENBPin, PWM_MaxSpeed_LH);
+#endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  if (Spiral_Mow == 1) analogWrite(PwmDXPin, PWM_MaxSpeed_RH);
+  if (Spiral_Mow == 2) analogWrite(PwmSXPin, PWM_MaxSpeed_LH);
 #endif
       lcd.print("X");
     }

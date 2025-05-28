@@ -61,7 +61,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define Minus_Key 52  // Pulsante -
 #define Stop_Key 53   // Pulsante Stop
 
-#define BTS7960_MOTORS
+//#define BTS7960_MOTORS
 #ifdef BTS7960_MOTORS
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore DX
@@ -74,6 +74,19 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define IN4Pin 3                // PIN RPWM
 #endif
 
+#define BRUSHLESS_TIPO1_MOTORS
+#ifdef BRUSHLESS_TIPO1_MOTORS
+//Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
+//Motore DX
+#define DirDXPin 7                // PIN Direction
+#define PwmDXPin 6                // PIN PWM
+#define PpmDXPin 5                // PIN PPM
+//Motore SX
+#define DirSXPin 2                // PIN Direction
+#define PwmSXPin 4                // PIN PWM
+#define PpmSXPin 3                // PIN PPM
+#endif
+
 //#define I2C_MOTORS
 #ifdef I2C_MOTORS
 //Setup for the wheel Motor Controller Configurazione per il controller dei driver motori
@@ -83,13 +96,22 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #define ADDR_SX_MOTOR 0x9
 #endif
 
-#define BTS7960_BLADES
+//#define BTS7960_BLADES
 #ifdef BTS7960_BLADES
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore Lama
 #define RPWM 8
 #define L_EN 9
 #define R_EN 10
+#endif
+
+#define BRUSHLESS_TIPO1_BLADES
+#ifdef BRUSHLESS_TIPO1_BLADES
+//Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
+//Motore Lama
+#define DirBLPin 8                // PIN Direction
+#define PwmBLPin 9                // PIN PWM
+#define PpmBLPin 10               // PIN PPM
 #endif
 
 //#define I2C_BLADES

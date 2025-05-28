@@ -122,23 +122,59 @@ void Init_Mower() {
 
 void Setup_Motor_DX_Pins() {                                  //Modifica per driver motori nuovi
   Serial.println(F("Setup Motor DX Pins"));
-//  pinMode(IN1Pin, OUTPUT);
-//  pinMode(IN2Pin, OUTPUT);
-//  pinMode(ENAPin, OUTPUT);
+#ifdef BTS7960_MOTORS
+  pinMode(IN1Pin, OUTPUT);
+  pinMode(IN2Pin, OUTPUT);
+  pinMode(ENAPin, OUTPUT);
+#endif
+
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  pinMode(DirDXPin, OUTPUT);
+  pinMode(PwmDXPin, OUTPUT);
+  pinMode(PpmDXPin, INPUT_PULLUP);
+#endif
+
+#ifdef I2C_MOTORS
+//da fare
+#endif
 }
 
 void Setup_Motor_SX_Pins() {                                 //Modifica per driver motori nuovi
   Serial.println(F("Setup Motor SX Pins"));
-//  pinMode(IN3Pin, OUTPUT);
-//  pinMode(IN4Pin, OUTPUT);
-//  pinMode(ENBPin, OUTPUT);
+#ifdef BTS7960_MOTORS
+  pinMode(IN3Pin, OUTPUT);
+  pinMode(IN4Pin, OUTPUT);
+  pinMode(ENBPin, OUTPUT);
+#endif
+
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  pinMode(DirSXPin, OUTPUT);
+  pinMode(PwmSXPin, OUTPUT);
+  pinMode(PpmSXPin, INPUT_PULLUP);
+#endif
+
+#ifdef I2C_MOTORS
+//da fare
+#endif
 }
 
 void Setup_Motor_Pins() {
   Serial.println(F("Setup Motor Pins"));
-//  pinMode(L_EN, OUTPUT);
-//  pinMode(R_EN, OUTPUT);
-//  pinMode(RPWM, OUTPUT);
+#ifdef BTS7960_BLADES
+  pinMode(L_EN, OUTPUT);
+  pinMode(R_EN, OUTPUT);
+  pinMode(RPWM, OUTPUT);
+#endif
+
+#ifdef BRUSHLESS_TIPO1_BLADES
+  pinMode(DirBLPin, OUTPUT);
+  pinMode(PwmBLPin, OUTPUT);
+  pinMode(PpmBLPin, INPUT_PULLUP);
+#endif
+
+#ifdef I2C_BLADES
+//da fare
+#endif
 }
 
 
