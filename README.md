@@ -2,8 +2,8 @@
 
 ###
 
-<div>
-<p align="left">Questa è una versione derivata (fork) del progetto originale di Marco Bedendo. Il mio obiettivo è che le modifiche qui apportate possano un giorno essere integrate nel progetto principale.<br>
+<div align="left">
+<p>Questa è una versione derivata (fork) del progetto originale di Marco Bedendo. Il mio obiettivo è che le modifiche qui apportate possano un giorno essere integrate nel progetto principale.<br>
 
 Le principali differenze rispetto all'originale per adesso includono:<br>
 
@@ -16,7 +16,17 @@ Le principali differenze rispetto all'originale per adesso includono:<br>
 </p>
 </div>
 
+
+<div align="center">
+  <img height="150" src="img/pcb.png"  />
+</div>
+
+
+<h1 align="left">Progetto originale e modifiche</h1>
+
 ###
+
+
 
 <div align="center">
   <img height="150" src="https://github.com/user-attachments/assets/ed07248b-e39b-4969-bd0f-9576c6b1846f"  />
