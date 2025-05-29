@@ -1,3 +1,22 @@
+<h1 align="left">Premessa</h1>
+
+###
+
+<p align="left">Questa è una versione derivata (fork) del progetto originale di Marco Bedendo. Il mio obiettivo è che le modifiche qui apportate possano un giorno essere integrate nel progetto principale.<br>
+
+Le principali differenze rispetto all'originale per adesso includono:<br>
+
+- Revisione del pinout per supportare futuri encoder sui motori.<br>
+- Integrazione di motori brushless via i2c e su pinout su PCB.<br>
+- Utilizzo del sensore INA226 sul PCB per la gestione di tensioni più elevate.<br>
+- Adozione di un PCB più compatto.<br>
+- Adozione di D1 Mini o ESP8266-01S per la comunicazione wireless.<br>
+- Adozione di Motori a 24V.<br>
+
+</p>
+###
+
+
 <div align="center">
   <img height="150" src="https://github.com/user-attachments/assets/ed07248b-e39b-4969-bd0f-9576c6b1846f"  />
 </div>
@@ -54,9 +73,12 @@ Questo è un progetto di un robot tagliaerba autonomo, basato su **Arduino Mega*
 
 | Componente | Link | Q.tà | Prezzo unitario | Totale | Note |
 |-----------|------|------|------------------|--------|------|
-| Arduino Mega 2560 R3 | [Amazon](https://www.amazon.it/dp/B071W7WP35) | 1 | €25.99 | €25.99 | Unità principale |
+<del>| Arduino Mega 2560 R3 | [Amazon](https://www.amazon.it/dp/B071W7WP35) | 1 | €25.99 | €25.99 | Unità principale |</del>
+| Arduino Mega 2560 PRO | [Amazon](https://www.amazon.it/dp/B07HBTSLCF) | 1 | €20.99 | €20.99 | Unità principale |
 | Arduino Nano | [Amazon](https://www.amazon.it/dp/B01LWSJBTD) | 1 | €11.99 | €11.99 | Telemetria batteria e sensori |
-| NodeMCU ESP8266 | [Amazon](https://www.amazon.it/dp/B06Y1ZPNMS) | 1 | €9.99 | €9.99 | Wi-Fi MQTT |
+<del>| NodeMCU ESP8266 | [Amazon](https://www.amazon.it/dp/B06Y1ZPNMS) | 1 | €9.99 | €9.99 | Wi-Fi MQTT |</del>
+| D1 Mini | [Amazon](https://www.amazon.it/dp/B01N9RXGHY) | 1 | €8.99 | €8.99 | Wi-Fi MQTT |
+| ESP8266-01S  | [Amazon](https://www.amazon.it/dp/B0B2RSZ8F6) | 1 | €11.99 | €11.99 | Wi-Fi MQTT |
 | Arduino UNO R3 | [Amazon](https://www.amazon.it/dp/B0C1V3QT9T) | 1 | €14.99 | €14.99 | Generatore filo perimetrale |
 | Display 16x2 I2C | [Amazon](https://www.amazon.it/dp/B07CQG6CMT) | 1 | €7.64 | €7.64 | Visualizzazione info |
 | Sensore ultrasuoni JSN-SR04T | [Amazon](https://www.amazon.it/dp/B0CLS8B5LH) | 2 | €9.99 | €19.98 | Ostacoli |
@@ -71,14 +93,14 @@ Questo è un progetto di un robot tagliaerba autonomo, basato su **Arduino Mega*
 | Modulo relè 1 canale | [Amazon](https://www.amazon.it/dp/B07V1YQQGL) | 1 | €6.99 | €6.99 | Comandi remoti |
 | Buck LM2596 | [Amazon](https://www.amazon.it/dp/B07MY2NTFV) | 2 | €9.59 | €19.18 | Regolazione tensione |
 | Step down 300W | [Amazon](https://www.amazon.it/dp/B07VRD5GZG) | 1 | €8.99 | €8.99 | Motori lama |
-| BMS 4S 30A | [Amazon](https://www.amazon.it/dp/B09DYD4GVN) | 1 | €8.99 | €8.99 | Gestione batteria |
-| Bilanciatore attivo 4S 5A | [Amazon](https://www.amazon.it/dp/B0B7CW6BRC) | 1 | €17.18 | €17.18 | Bilanciamento celle |
-| Batteria LiPo 4S 6200mAh 80C | [Amazon](https://www.amazon.it/dp/B0CB6HTW7S) | 1 | €46.99 | €46.99 | Alimentazione principale |
-| Motore Micromotors 22/20 RPM | [CSElettronica](https://www.cselettronica.net/default.asp?cmd=getProd&cmdID=20156) | 2 | €36.70 | €73.40 | Motori trazione |
-| Motore lama 12V 30W | [Amazon](https://www.amazon.it/dp/B076M53HC9) | 1 | €27.79 | €27.79 | Rotore taglio |
+<del>| BMS 4S 30A | [Amazon](https://www.amazon.it/dp/B09DYD4GVN) | 1 | €8.99 | €8.99 | Gestione batteria |</del>
+<del>| Bilanciatore attivo 4S 5A | [Amazon](https://www.amazon.it/dp/B0B7CW6BRC) | 1 | €17.18 | €17.18 | Bilanciamento celle |</del>
+<del>| Batteria LiPo 4S 6200mAh 80C | [Amazon](https://www.amazon.it/dp/B0CB6HTW7S) | 1 | €46.99 | €46.99 | Alimentazione principale |</del>
+<del>| Motore Micromotors 22/20 RPM | [CSElettronica](https://www.cselettronica.net/default.asp?cmd=getProd&cmdID=20156) | 2 | €36.70 | €73.40 | Motori trazione |</del>
+<del>| Motore lama 12V 30W | [Amazon](https://www.amazon.it/dp/B076M53HC9) | 1 | €27.79 | €27.79 | Rotore taglio |</del>
 | Ventole 40x40x10 24V | [Amazon](https://www.amazon.it/dp/B07WJGHTCF) | 2 | €8.99 | €17.98 | Raffreddamento |
 | Alimentatore Mean Well 150W 24V | [Leroy Merlin](https://www.leroymerlin.it/prodotti/alimentatore-trasformatore-mean-well-150w-24v-6-25a-xlg-150-24-a-ip67-impermeabile-89756671.html) | 1 | €39.50 | €39.50 | Base ricarica |
-| Scheda madre robot personalizzata | [MakerWorld](https://makerworld.com/it/models/420276-arduino-robot-lawnmower-robot-tagliaerba-arduino#profileId-323001) | 1 | €25.00 | €25.00 | Prodotta da Marco |
+<del>| Scheda madre robot personalizzata | [MakerWorld](https://makerworld.com/it/models/420276-arduino-robot-lawnmower-robot-tagliaerba-arduino#profileId-323001) | 1 | €25.00 | €25.00 | Prodotta da Marco |</del>
 
 **Totale stimato**: **€497,21** (solo elettronica, escluso meccanica e struttura)
 
