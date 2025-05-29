@@ -2,6 +2,7 @@
 
 ###
 
+<div>
 <p align="left">Questa è una versione derivata (fork) del progetto originale di Marco Bedendo. Il mio obiettivo è che le modifiche qui apportate possano un giorno essere integrate nel progetto principale.<br>
 
 Le principali differenze rispetto all'originale per adesso includono:<br>
@@ -11,7 +12,9 @@ Le principali differenze rispetto all'originale per adesso includono:<br>
 - Utilizzo del sensore INA226 sul PCB per la gestione di tensioni più elevate.<br>
 - Adozione di un PCB più compatto.<br>
 - Adozione di D1 Mini o ESP8266-01S per la comunicazione wireless.<br>
-- Adozione di Motori a 24V.</p>
+- Adozione di Motori a 24V.
+</p>
+</div>
 
 ###
 
