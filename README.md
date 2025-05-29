@@ -99,6 +99,7 @@ Questo è un progetto di un robot tagliaerba autonomo, basato su **Arduino Mega*
 | Ventole 40x40x10 24V | [Amazon](https://www.amazon.it/dp/B07WJGHTCF) | 2 | €8.99 | €17.98 | Raffreddamento |
 | Alimentatore Mean Well 150W 24V | [Leroy Merlin](https://www.leroymerlin.it/prodotti/alimentatore-trasformatore-mean-well-150w-24v-6-25a-xlg-150-24-a-ip67-impermeabile-89756671.html) | 1 | €39.50 | €39.50 | Base ricarica |
 | <del>Scheda madre robot personalizzata</del> | [MakerWorld](https://makerworld.com/it/models/420276-arduino-robot-lawnmower-robot-tagliaerba-arduino#profileId-323001) | 1 | €25.00 | €25.00 | Prodotta da Marco |
+| Scheda madre robot personalizzata | presto su questo repository | 1 | €?? | €?? | Prodotta da Me |
 
 **Totale stimato**: **€497,21** (solo elettronica, escluso meccanica e struttura)
 
