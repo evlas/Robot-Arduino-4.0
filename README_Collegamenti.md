@@ -53,40 +53,40 @@ Questo documento elenca in dettaglio i collegamenti elettrici tra i microcontrol
 | SDA              | SDA        |
 | SCL              | SCL        |
 | GND              | GND        |
-| 3.3V             | Vcc        |
+| 5V               | Vcc        |
 
 ---
 
 ### ⚙️ Driver BTS7960 – Motore Lama
-| Pin Arduino Mega | Funzione |
-|------------------|----------|
-| 8                | LPWM     |
-| 9                | R_EN     |
-| 10               | L_EN     |
-| GND              | GND      |
-| 5V               | Vcc      |
+| Pin Arduino Mega | Funzione | Brushless |
+|------------------|----------|-----------|
+| 8                | LPWM     |    PWM    |
+| 9                | R_EN     |    DIR    |
+| 10               | L_EN     |           |
+| GND              | GND      |    GND    |
+| 5V               | Vcc      |    Vcc    |
 
 ---
 
 ### ⚙️ Driver BTS7960 – Motore Ruota DX
-| Pin Arduino Mega | Funzione |
-|------------------|----------|
-| 5                | LPWM     |
-| 6                | RPWM     |
-| 7                | L_EN+R_EN|
-| GND              | GND      |
-| 5V               | Vcc      |
+| Pin Arduino Mega | Funzione | Brushless |
+|------------------|----------|-----------|
+| 7                | LPWM     |    PWM    |
+| 6                | RPWM     |    DIR    |
+| 2                | L_EN+R_EN|    FG     |
+| GND              | GND      |    GND    |
+| 5V               | Vcc      |    Vcc    |
 
 ---
 
 ### ⚙️ Driver BTS7960 – Motore Ruota SX
-| Pin Arduino Mega | Funzione |
-|------------------|----------|
-| 2                | L_EN+R_EN|
-| 3                | RPWM     |
-| 4                | LPWM     |
-| GND              | GND      |
-| 5V               | Vcc      |
+| Pin Arduino Mega | Funzione | Brushless |
+|------------------|----------|-----------|
+| 5                | LPWM     |    PWM    |
+| 4                | RPWM     |    DIR    |
+| 3                | L_EN+R_EN|    FG     |
+| GND              | GND      |    GND    |
+| 5V               | Vcc      |    Vcc    |
 
 ---
 
