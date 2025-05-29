@@ -169,7 +169,7 @@ void Setup_Motor_Pins() {
 #ifdef BRUSHLESS_TIPO1_BLADES
   pinMode(DirBLPin, OUTPUT);
   pinMode(PwmBLPin, OUTPUT);
-  pinMode(PpmBLPin, INPUT_PULLUP);
+//  pinMode(PpmBLPin, INPUT_PULLUP);
 #endif
 
 #ifdef I2C_BLADES

@@ -65,25 +65,25 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #ifdef BTS7960_MOTORS
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore DX
-#define ENAPin 7                // PIN L_EN + R_EN  
+#define ENAPin 2                // PIN L_EN + R_EN  
 #define IN1Pin 6                // PIN RPWM
-#define IN2Pin 5                // PIN LPWM
+#define IN2Pin 7                // PIN LPWM 
 //Motore SX
-#define ENBPin 2                // PIN L_EN + R_EN
-#define IN3Pin 4                // PIN LPWM
-#define IN4Pin 3                // PIN RPWM
+#define ENBPin 3                // PIN L_EN + R_EN
+#define IN3Pin 5                // PIN LPWM
+#define IN4Pin 4                // PIN RPWM
 #endif
 
 #define BRUSHLESS_TIPO1_MOTORS
 #ifdef BRUSHLESS_TIPO1_MOTORS
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore DX
-#define DirDXPin 7                // PIN Direction
-#define PwmDXPin 6                // PIN PWM
-#define PpmDXPin 5                // PIN PPM
+#define DirDXPin 6                // PIN Direction
+#define PwmDXPin 7                // PIN PWM
+#define PpmDXPin 2                // PIN PPM (Interrupt) 
 //Motore SX
-#define DirSXPin 2                // PIN Direction (Interrupt)
-#define PwmSXPin 4                // PIN PWM
+#define DirSXPin 4                // PIN Direction
+#define PwmSXPin 5                // PIN PWM
 #define PpmSXPin 3                // PIN PPM       (Interrupt)
 #endif
 
@@ -109,9 +109,9 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #ifdef BRUSHLESS_TIPO1_BLADES
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore Lama
-#define DirBLPin 8                // PIN Direction
-#define PwmBLPin 9                // PIN PWM
-#define PpmBLPin 10               // PIN PPM
+#define DirBLPin 9                // PIN Direction
+#define PwmBLPin 8                // PIN PWM
+//#define PpmBLPin 10               // PIN PPM
 #endif
 
 //#define I2C_BLADES
