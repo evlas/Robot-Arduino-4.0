@@ -11,7 +11,8 @@ Le principali differenze rispetto all'originale per adesso includono:<br>
 - Utilizzo del sensore INA226 sul PCB per la gestione di tensioni più elevate.<br>
 - Adozione di un PCB più compatto.<br>
 - Adozione di D1 Mini o ESP8266-01S per la comunicazione wireless.<br>
-- Adozione di Motori a 24V.</p>
+- Adozione di Motori a 24V.
+</p>
 
 ###
 
