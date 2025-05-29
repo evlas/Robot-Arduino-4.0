@@ -94,7 +94,9 @@ Questo è un progetto di un robot tagliaerba autonomo, basato su **Arduino Mega*
 | <del>BMS 4S 30A</del> | [Amazon](https://www.amazon.it/dp/B09DYD4GVN) | 1 | €8.99 | €8.99 | Gestione batteria |
 | <del>Bilanciatore attivo 4S 5A</del> | [Amazon](https://www.amazon.it/dp/B0B7CW6BRC) | 1 | €17.18 | €17.18 | Bilanciamento celle |
 | <del>Batteria LiPo 4S 6200mAh 80C</del> | [Amazon](https://www.amazon.it/dp/B0CB6HTW7S) | 1 | €46.99 | €46.99 | Alimentazione principale |
-| <del>Motore Micromotors 22/20 RPM</del> | [CSElettronica](https://www.cselettronica.net/default.asp?cmd=getProd&cmdID=20156) | 2 | €36.70 | €73.40 | Motori trazione |</del>
+| <del>Motore Micromotors 22/20 RPM</del> | [CSElettronica](https://www.cselettronica.net/default.asp?cmd=getProd&cmdID=20156) | 2 | €36.70 | €73.40 | Motori trazione |
+| Motore Brushless 42GP-4260 27/22 RPM | [Aliexpress](https://it.aliexpress.com/item/1005006885830154.html) | 2 | €42.09 | €84.18 | Motori trazione |
+| Motore Brushless CM36-3650 32/24 RPM | [Aliexpress](https://it.aliexpress.com/item/1005002542329171.html) | 2 | €24.49 | €48.98 | Motori trazione |
 | <del>Motore lama 12V 30W</del> | [Amazon](https://www.amazon.it/dp/B076M53HC9) | 1 | €27.79 | €27.79 | Rotore taglio |
 | Ventole 40x40x10 24V | [Amazon](https://www.amazon.it/dp/B07WJGHTCF) | 2 | €8.99 | €17.98 | Raffreddamento |
 | Alimentatore Mean Well 150W 24V | [Leroy Merlin](https://www.leroymerlin.it/prodotti/alimentatore-trasformatore-mean-well-150w-24v-6-25a-xlg-150-24-a-ip67-impermeabile-89756671.html) | 1 | €39.50 | €39.50 | Base ricarica |
