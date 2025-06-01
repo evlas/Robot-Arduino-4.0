@@ -1,5 +1,4 @@
 // Funzione per ricevere i dati dal MEGA
-
 void Receive_All_From_MEGA() {
   String NodeMCU_RX_Value = "";  // Variabile per ricevere i dati dal MEGA
 
@@ -9,9 +8,20 @@ void Receive_All_From_MEGA() {
       NodeMCU_RX_Value += (char)recieved;
     } else if (recieved == '\g') {
       val_VoltNow = NodeMCU_RX_Value.toFloat();
-      BatteryVoltage = val_VoltNow;
-      Serial.print("Battery Voltage: ");
-      Serial.println(BatteryVoltage);
+      if (val_VoltNow >= 12.0 && val_VoltNow <= 16.8) {
+        BatteryVoltage = val_VoltNow;
+#ifdef SOFT_SERIAL
+        Serial.print("Battery Voltage OK: ");
+        Serial.println(BatteryVoltage);
+#endif
+        client.publish("home/robot/mower/status/battery", String(BatteryVoltage, 2).c_str(), true);
+      } else {
+#ifdef SOFT_SERIAL
+        Serial.print("Battery Voltage fuori scala: ");
+        Serial.println(val_VoltNow);
+#endif
+        client.publish("home/robot/mower/status/battery", "INVALIDO", true);  // Debug
+      }
       NodeMCU_RX_Value = "";
     } else if (recieved == '\c') {
       Loop_Cycle_Mowing = NodeMCU_RX_Value.toInt();
@@ -38,24 +48,6 @@ void Receive_All_From_MEGA() {
 void Update_Home_Assistant_With_Status() {
   JsonDocument discovery;
   String mqtt_data = "";
-
-  //control
-  discovery["name"] = "control";
-  discovery["unique_id"] = "mower_control";
-  discovery["max"] = "255";
-  discovery["min"] = "0";
-  discovery["mode"] = "text";
-  discovery["component"] = "text";
-  discovery["command_topic"] = (String(mqtt_topic_in)).c_str();
-  discovery["device"]["name"] = "Mower";
-  discovery["device"]["manufacturer"] = "Marco Bedendo";
-  discovery["device"]["model"] = "Mower Sensor";
-  discovery["device"]["identifiers"] = "BedendoMower";
-  serializeJson(discovery, mqtt_data);
-  client.beginPublish((String(mqtt_topic_discovery) + "/text/mower/control/config").c_str(), mqtt_data.length(), false);
-  client.print(mqtt_data.c_str());
-  client.endPublish();
-  discovery.clear();
 
   // BatteryVoltage
   discovery["name"] = "Battery";
@@ -158,11 +150,41 @@ void Update_Home_Assistant_With_Status() {
   client.endPublish();
   discovery.clear();
 
-  client.publish((String(mqtt_topic_out) + "/battery").c_str(), String(BatteryVoltage).c_str());
-  client.publish((String(mqtt_topic_out) + "/loop").c_str(), String(Loop_Cycle_Mowing).c_str());
-  client.publish((String(mqtt_topic_out) + "/parked").c_str(), String(Mower_Parked).c_str());
-  client.publish((String(mqtt_topic_out) + "/docked").c_str(), String(Mower_Docked).c_str());
-  client.publish((String(mqtt_topic_out) + "/running").c_str(), String(Mower_Running).c_str());
-  client.publish((String(mqtt_topic_out) + "/charge").c_str(), String(Charge_Detected).c_str());
-  client.publish((String(mqtt_topic_out) + "/tracking").c_str(), String(Tracking_Wire).c_str());
+  // Loop Cycle Mowing
+  client.publish("home/robot/mower/status/loop", String(Loop_Cycle_Mowing).c_str(), true);
+
+  // Parked
+  if (Mower_Parked == 1) {
+    client.publish("home/robot/mower/status/parked", "PARCHEGGIATO", true);
+  } else {
+    client.publish("home/robot/mower/status/parked", "OFF", true);
+  }
+
+  // Docked
+  if (Mower_Docked == 1) {
+    client.publish("home/robot/mower/status/docked", "IN BASE", true);
+  } else {
+    client.publish("home/robot/mower/status/docked", "OFF", true);
+  }
+
+  // Running
+  if (Mower_Running == 1) {
+    client.publish("home/robot/mower/status/running", "FALCIATURA", true);
+  } else {
+    client.publish("home/robot/mower/status/running", "OFF", true);
+  }
+
+  // Charge
+  if (Charge_Detected == 4) {
+    client.publish("home/robot/mower/status/charge", "IN CARICA", true);
+  } else {
+    client.publish("home/robot/mower/status/charge", "OFF", true);
+  }
+
+  // Tracking wire
+  if (Tracking_Wire == 1) {
+    client.publish("home/robot/mower/status/tracking", "TRACCIATURA FILO", true);
+  } else {
+    client.publish("home/robot/mower/status/tracking", "OFF", true);
+  }
 }

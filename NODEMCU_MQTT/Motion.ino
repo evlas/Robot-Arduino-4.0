@@ -1,4 +1,94 @@
-// Funzione per ricevere comandi da Home Assistant
+// Auto discovery per sensore di movimento
+void sendMotionDiscovery() {
+  const char* discovery_topic = "homeassistant/binary_sensor/motion_sensor/config";
+  const char* payload = R"rawliteral({
+    "name": "Motion Sensor",
+    "state_topic": "home/motion/state",
+    "device_class": "motion",
+    "payload_on": "ON",
+    "payload_off": "OFF",
+    "unique_id": "motion_sensor_01",
+    "device": {
+      "identifiers": ["motion_sensor_01"],
+      "name": "Motion Sensor Node",
+      "model": "PIR-Sensor",
+      "manufacturer": "Custom"
+    }
+  })rawliteral";
+  client.publish(discovery_topic, payload, true);
+}
+
+// Auto discovery per i comandi del robot
+
+void sendRobotCommandDiscovery() {
+  struct CommandInfo {
+    const char* id;
+    const char* name;
+    const char* payload;
+  } commands[] = {
+    { "motion_start", "Start Robot", "start" },
+    { "motion_pause", "Pause Robot", "pause" },
+    { "motion_dock", "Dock Robot", "dock" },
+    { "motion_exitdock", "Exit Dock", "Exit Dock" }
+  };
+
+  for (CommandInfo cmd : commands) {
+    String topic = "homeassistant/button/" + String(cmd.id) + "/config";
+    String payload = R"rawliteral({
+      "name": "NAME",
+      "command_topic": "home/robot/mower/control",
+      "payload_press": "PAYLOAD",
+      "unique_id": "ID",
+      "device": {
+        "identifiers": ["motion_sensor_01"],
+        "name": "Motion Robot",
+        "model": "Mower-X",
+        "manufacturer": "Custom"
+      }
+    })rawliteral";
+    payload.replace("NAME", cmd.name);
+    payload.replace("PAYLOAD", cmd.payload);
+    payload.replace("ID", cmd.id);
+    client.publish(topic.c_str(), payload.c_str(), true);
+  }
+}
+
+// Auto discovery per i comandi manuali e modalità
+void sendManualControlDiscovery() {
+  struct CommandInfo {
+    const char* id;
+    const char* name;
+    const char* payload;
+  } manualCmds[] = {
+    { "manual_mode", "Manual Mode", "manuale" },
+    { "auto_mode", "Automatic Mode", "automatico" },
+    { "move_forward", "Move Forward", "avanti" },
+    { "move_backward", "Move Backward", "indietro" },
+    { "turn_left", "Turn Left", "sinistra" },
+    { "turn_right", "Turn Right", "destra" },
+    { "stop", "Stop", "pause" }
+  };
+
+  for (CommandInfo cmd : manualCmds) {
+    String topic = "homeassistant/button/" + String(cmd.id) + "/config";
+    String payload = R"rawliteral({
+      "name": "NAME",
+      "command_topic": "home/robot/mower/control",
+      "payload_press": "PAYLOAD",
+      "unique_id": "ID",
+      "device": {
+        "identifiers": ["motion_sensor_01"],
+        "name": "Motion Robot",
+        "model": "Mower-X",
+        "manufacturer": "Custom"
+      }
+    })rawliteral";
+    payload.replace("NAME", cmd.name);
+    payload.replace("PAYLOAD", cmd.payload);
+    payload.replace("ID", cmd.id);
+    client.publish(topic.c_str(), payload.c_str(), true);
+  }
+}
 
 void mqtt_callback(char* topic, byte* payload, unsigned int length) {
   String message = "";
@@ -6,57 +96,73 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
     message += (char)payload[i];
   }
 
+#ifdef SOFT_SERIAL
   Serial.print("Received message: ");
   Serial.println(message);
   Serial.print("From topic: ");
   Serial.println(topic);
-
-    if (String(topic) == mqtt_topic_in) {
+#endif
+  if (String(topic) == mqtt_topic_in) {
     if (message == "start") {
+#ifdef SOFT_SERIAL
       Serial.println("Starting Mower");
-      transmit_MQTT_code = 13;  // Comando per avviare il Robot
+#endif
+      transmit_MQTT_code = 13;
       Transmit_MQTT_Data_to_Mega();
-    } else if (message == "pause") {
+    } else if (message == "pause" || message == "fermo") {
+#ifdef SOFT_SERIAL
       Serial.println("Pausing Mower");
-      transmit_MQTT_code = 11;  // Comando per mettere in pausa il Robot
+#endif
+      transmit_MQTT_code = 11;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "dock") {
+#ifdef SOFT_SERIAL
       Serial.println("Going Home");
-      transmit_MQTT_code = 12;   // Comando per andare il Robot alla base
+#endif
+      transmit_MQTT_code = 12;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "Exit Dock") {
+#ifdef SOFT_SERIAL
       Serial.println("Exit Dock");
-      transmit_MQTT_code = 14;   // Comando per far uscire il Robot dalla base
+#endif
+      transmit_MQTT_code = 14;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "manuale") {
+#ifdef SOFT_SERIAL
       Serial.println("Switching to manual mode");
-      transmit_MQTT_code = 15;  // Comando per modalità manuale
+#endif
+      transmit_MQTT_code = 15;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "automatico") {
+#ifdef SOFT_SERIAL
       Serial.println("Switching to automatic mode");
-      transmit_MQTT_code = 16;  // Comando per modalità automatica
+#endif
+      transmit_MQTT_code = 16;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "avanti") {
+#ifdef SOFT_SERIAL
       Serial.println("Moving forward");
-      transmit_MQTT_code = 17;  // Comando per muovere avanti
+#endif
+      transmit_MQTT_code = 17;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "indietro") {
+#ifdef SOFT_SERIAL
       Serial.println("Moving backward");
-      transmit_MQTT_code = 18;  // Comando per muovere indietro
+#endif
+      transmit_MQTT_code = 18;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "destra") {
+#ifdef SOFT_SERIAL
       Serial.println("Turning right");
-      transmit_MQTT_code = 20;  // Comando per girare a destra
+#endif
+      transmit_MQTT_code = 20;
       Transmit_MQTT_Data_to_Mega();
     } else if (message == "sinistra") {
+#ifdef SOFT_SERIAL
       Serial.println("Turning left");
-      transmit_MQTT_code = 19;  // Comando per girare a sinistra
+#endif
+      transmit_MQTT_code = 19;
       Transmit_MQTT_Data_to_Mega();
-    } else if (message == "fermo") {
-      Serial.println("Stopping motors");
-      transmit_MQTT_code = 11;  // Comando per fermare il robot (pausa)
-      Transmit_MQTT_Data_to_Mega();
-      
     }
   }
 }
