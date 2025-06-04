@@ -294,7 +294,7 @@ void Track_Wire_From_Dock_to_Zone_X() {
     Check_Bumper();
     if ((Bump_Frnt_LH == true) || (Bump_Frnt_RH == true)) {
       Compass_Turn_Mower_To_Home_Direction();  // Nuova aggiunta 15/06/2024
-      Maneuver_Find_Wire_Track();
+      Manouver_Find_Wire_Track();
     }
   }
 
@@ -461,7 +461,7 @@ void Track_Perimeter_Wire_To_Dock() {
         if (WIFI_Enabled == 1) Get_WIFI_Commands();
         Dock_Cycles = 0;
       }
-      if (Loop_Cycle_Mowing == Cycles_Max) Maneuver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
+      if (Loop_Cycle_Mowing == Cycles_Max) Manouver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
     }
 
     Loop_Cycle_Mowing = 0;
@@ -588,7 +588,7 @@ void Track_Perimeter_Wire_To_Dock() {
         if (WIFI_Enabled == 1) Get_WIFI_Commands();
         Dock_Cycles = 0;
       }
-      if (Loop_Cycle_Mowing == Cycles_Max) Maneuver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
+      if (Loop_Cycle_Mowing == Cycles_Max) Manouver_Cycles_Max();  // Manovra per sganciari da un'aiuola e ripetere la ricerca del filo peimetrale
     }
 
     Loop_Cycle_Mowing = 0;
@@ -603,7 +603,9 @@ void Track_Perimeter_Wire_To_Dock() {
 // Avvia un algoritmo per ritrovare il filo dopo averlo perso nel tracciamento
 void Tracking_Restart_Blocked_Path() {
   Motor_Action_Stop_Motors();
+  Serial.println(F(""));
   Serial.println(F("Possible Blocked Path - Trying to Avoid"));
+  Serial.println(F(""));
   Mower_Running = 1;
   Tracking_Wire = 1;
   if (WIFI_Enabled == 1) Get_WIFI_Commands();  // TX and RX data from NodeMCU
@@ -640,7 +642,7 @@ void Tracking_Restart_Blocked_Path() {
     Tracking_Wire = 0;
     if (WIFI_Enabled == 1) Get_WIFI_Commands();  // TX and RX data from NodeMCU
     if (Compass_Activate == 1) Compass_Turn_Mower_To_Home_Direction();
-    Maneuver_Find_Wire_Track();
+    Manouver_Find_Wire_Track();
     //Track_Perimeter_Wire_To_Dock();
   }
 }

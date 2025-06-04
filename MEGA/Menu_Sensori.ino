@@ -13,8 +13,10 @@ void Print_LCD_Menu_Sensors(byte LCD_Menu_Sensors) {
   if (LCD_Menu_Sensors == 8) lcd.print(F("Sensib. PIOGGIA"));
   if (LCD_Menu_Sensors == 9) lcd.print(F("WIFI ON/OFF"));
   if (LCD_Menu_Sensors == 10) lcd.print(F("PARAURTI ON/OFF"));
+  if (LCD_Menu_Sensors == 11) lcd.print(F("RPLidar ON/OFF"));
+  if (LCD_Menu_Sensors == 12) lcd.print(F("Distanza LIDAR"));
 
-  Max_Options_Sensors = 10;
+  Max_Options_Sensors = 12;
 }
 
 
@@ -826,6 +828,123 @@ void Activate_Menu_Option_Sensors() {
     }
   }
 
+  if (Menu_Mode_Selection == 11) {
+    // Modulo RPLidar ON/OFF
+    lcd.clear();
+    lcd.print(F("RPLidar"));
+    delay(1000);
+    lcd.clear();
+    Menu_Mode_Selection = 0;
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print(F("RPLidar"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Status : "));
+    if (RPLIDAR_Enabled == 1) lcd.print(F("ON  "));
+    if (RPLIDAR_Enabled == 0) lcd.print(F("OFF"));
+
+    Menu_Complete_Sensors = false;
+    while (Menu_Complete_Sensors == false) {
+      Read_Membrane_Keys();
+      delay(100);
+      //Enter Code Here to Cycle until stop key is pressed.
+      if (!Start_Key_X) {
+        Serial.println(F("RPlidar ON/OFF Settings Saved"));
+        Menu_Complete_Sensors = true;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(F("RPLidar"));
+        lcd.setCursor(0, 1);
+        lcd.print(F("Salvato: "));
+        if (RPLIDAR_Enabled == 1) lcd.print(F("ON  "));
+        if (RPLIDAR_Enabled == 0) lcd.print(F("OFF"));
+        Serial.print(F("Sensor:"));
+        Serial.println(RPLIDAR_Enabled);
+        delay(2000);
+        lcd.clear();
+        EEPROM.write(159, 1);
+        EEPROM.write(160, RPLIDAR_Enabled);
+        Menu_Mode_Selection = 0;
+      }
+      if (!Plus_Key_X) {
+        lcd.setCursor(0, 1);
+        lcd.print(F("Stato : "));
+        RPLIDAR_Enabled = 1;
+        lcd.print(F("ON  "));
+        Serial.print(F("Sensor:"));
+        Serial.println(RPLIDAR_Enabled);
+        delay(100);
+      }
+      if (!Minus_Key_X) {
+        lcd.setCursor(0, 1);
+        lcd.print(F("Stato : "));
+        RPLIDAR_Enabled = 0;
+        lcd.print(F("OFF"));
+        Serial.print(F("Sensor:"));
+        Serial.println(RPLIDAR_Enabled);
+        delay(100);
+      }
+    }
+  }
+
+  if (Menu_Mode_Selection == 12) {
+    // Distanza LIDAR
+    Menu_Mode_Selection = 0;
+    lcd.clear();
+    delay(500);
+    lcd.setCursor(0, 0);
+    lcd.print(F("Distanza LIDAR:"));
+    lcd.setCursor(0, 1);
+    lcd.print(F("Cm = "));
+    lcd.print(maxdistanceLIDAR);
+    Serial.print(F("Lidar Distance = :"));
+    Serial.println(maxdistanceLIDAR);
+    Menu_Complete_Sensors = false;
+    while (Menu_Complete_Sensors == false) {
+      Read_Membrane_Keys();
+      delay(100);
+      //Enter Code Here to Cycle until stop key is pressed.
+      if (!Start_Key_X) {
+        Serial.println(F("Settings Saved"));
+        Menu_Complete_Sensors = true;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(F("mm = "));
+        lcd.print(maxdistanceLIDAR);
+        lcd.setCursor(0, 1);
+        lcd.print(F("SALVATO"));
+        delay(2000);
+        lcd.clear();
+        EEPROM.write(161, 1);
+        EEPROM.write(162, maxdistanceLIDAR);
+        Menu_Mode_Selection = 0;
+      }
+      if (!Plus_Key_X) {
+        maxdistanceLIDAR = maxdistanceLIDAR + 10;
+        if (maxdistanceLIDAR > 1000) maxdistanceLIDAR = 1000;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(F("Distanza LIDAR:"));
+        lcd.setCursor(0, 1);
+        lcd.print(F("mm = "));
+        lcd.print(maxdistanceLIDAR);
+        Serial.print(F("Distan LIDAR = :"));
+        Serial.println(maxdistanceLIDAR);
+      }
+      if (!Minus_Key_X) {
+        maxdistanceLIDAR = maxdistanceLIDAR - 10;
+        if (maxdistanceLIDAR < 250) maxdistanceLIDAR = 250;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print(F("Distanza LIDAR:"));
+        lcd.setCursor(0, 1);
+        lcd.print(F("mm = "));
+        lcd.print(maxdistanceLIDAR);
+        Serial.print(F("Distan LIDAR = :"));
+        Serial.println(maxdistanceLIDAR);
+      }
+    }
+  }
 
   if (Menu_Complete_Sensors = true) Print_Membrane_Switch_Input_Sensors();
 }

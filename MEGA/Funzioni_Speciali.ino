@@ -8,11 +8,15 @@ void Special_Move_Into_Garden_Zone_X() {
   Motor_Action_Go_Slow_Speed();
   delay(900);                  // Tempo di rotazione (Regolare in modo che ruoti di 90° rispetto il cavo)
   Motor_Action_Stop_Motors();  // Ferma i motori
-  SetPins_ToGoForwards();      // Pronto per lavorare
+  delay(500);
+  SetPins_ToGoForwards();  // Pronto per lavorare
   Motor_Action_Go_Slow_Speed();
   delay(200);
-  Motor_Action_Stop_Motors();  // Ferma i motori
-  delay(1000);
+  // Dopo la rotazione
+  Get_GYRO_Reading();   // Per registrare l'orientamento finale
+  Gyro_Heading = 0;     // Reset accumulato
+  targetHeading = 0;    // Nuova direzione da mantenere
+  lastTime = millis();  // ⚠ Importante per evitare errori di tempo al prossimo ciclo
   Compass_Heading_Locked = 0;
 }
 
@@ -28,7 +32,7 @@ void Special_Exit_From_Docking_Station() {
     Serial.print("|");
     Serial.print(F("Right Wheel PWM:"));
     Serial.println(PWM_Slow_Speed_RH);
-    delay(1800);                 // Tempo di uscita dalla base
+    delay(1900);                 // Tempo di uscita dalla base
     Motor_Action_Stop_Motors();  // Stop
     delay(1000);                 // Tempo di sosta
 
@@ -60,6 +64,7 @@ void Special_Exit_From_Docking_Station() {
   }
 }
 
+// Avvia un algoritmo per ritrovare il filo dopo averlo perso nel tracciamento
 void Specials_Find_Wire_Track() {
 
   Serial.println("");

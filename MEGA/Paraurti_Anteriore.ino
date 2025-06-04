@@ -18,14 +18,11 @@ void Check_Bumper() {
       lcd.print("PARAURTI");
       lcd.setCursor(0, 1);
       lcd.print("ATTIVATO");
-      delay(600);
+      delay(1000);
       lcd.clear();
     }
   }
 }
-
-
-
 
 void Start_Bumper_Bar_Test() {
   Setup_Bumper_Bar();

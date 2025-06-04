@@ -32,7 +32,7 @@ void Check_Wheel_Amps() {
         Serial.print(F("|"));
         Wheel_Blocked = 4;
         Print_LCD_Ruota();
-        Maneuver_Turn_Around();
+        Manouver_Turn_Around();
       }
     } else {
       Wheel_Blocked = 0;

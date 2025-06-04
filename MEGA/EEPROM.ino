@@ -176,6 +176,7 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(PWM_Blade_Speed);
   }
 
+#ifdef COMPASS
   COMPASS_EEPROM = EEPROM.read(19);
   if (COMPASS_EEPROM == 1) {
     Compass_Activate = EEPROM.read(20);
@@ -184,6 +185,7 @@ void Load_EEPROM_Saved_Data() {
     if (Compass_Activate == 1) Serial.println(F("ON"));
   }
   //Compass_Activate = 0;
+#endif
 
   Tracking_PID_P_EEPROM = EEPROM.read(21);
   if (Tracking_PID_P_EEPROM == 1) {
@@ -210,12 +212,14 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(Battery_Min);
   }
 
+#ifdef COMPASS
   Compass_Home_EEPROM = EEPROM.read(27);
   if (Compass_Home_EEPROM == 1) {
     Home_Wire_Compass_Heading = (EEPROM.read(28) * 10);  // *10 poiché il valore può essere superiore a 255. Vaule viene quindi memorizzato come decimo valore
     Serial.print(F("Compass Home Degrees : "));
     Serial.println(Home_Wire_Compass_Heading);
   }
+#endif
 
   Tip_Safety_EEPROM = EEPROM.read(29);
   if (Tip_Safety_EEPROM == 1) {
@@ -286,6 +290,7 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(Track_Wire_Zone_2_Cycles);
   }
 
+#ifdef COMPASS
   Use_Charging_Station_EEPROM = EEPROM.read(47);
   if (Use_Charging_Station_EEPROM == 1) {
     Compass_Activate = EEPROM.read(48);
@@ -293,6 +298,7 @@ void Load_EEPROM_Saved_Data() {
     if (Compass_Activate == 0) Serial.println(F("OFF"));
     if (Compass_Activate == 1) Serial.println(F("ON"));
   }
+#endif
 
   CW_Tracking_To_Charge_EEPROM = EEPROM.read(49);
   if (CW_Tracking_To_Charge_EEPROM == 1) {
@@ -334,6 +340,7 @@ void Load_EEPROM_Saved_Data() {
     Serial.println(Max_Cycles_Straight);
   }
 
+#ifdef COMPASS
   Compass_Heading_Hold_Enabled_EEPROM = EEPROM.read(59);
   if (Compass_Heading_Hold_Enabled_EEPROM == 1) {
     Compass_Heading_Hold_Enabled = EEPROM.read(60);
@@ -341,6 +348,7 @@ void Load_EEPROM_Saved_Data() {
     if (Compass_Heading_Hold_Enabled == 0) Serial.println(F("OFF"));
     if (Compass_Heading_Hold_Enabled == 1) Serial.println(F("ON"));
   }
+#endif
 
   CPower_EEPROM = EEPROM.read(61);
   if (CPower_EEPROM == 1) {
@@ -505,6 +513,35 @@ void Load_EEPROM_Saved_Data() {
   }
   if (Boost_Turn == 0) Serial.print(F("Setting: Boost Turn OFF"));
 
+  Serial.println(F(""));
+
+#ifdef LIDAR
+  RPLIDAR_Enabled_EEPROM = EEPROM.read(159);
+  if (RPLIDAR_Enabled_EEPROM == 1) {
+    RPLIDAR_Enabled = EEPROM.read(160);
+    Serial.print(F("RPLidar Module ON/OFF from EEPROM : "));
+    if (RPLIDAR_Enabled == 0) Serial.println(F("OFF"));
+    if (RPLIDAR_Enabled == 1) Serial.println(F("ON"));
+  }
+
+  maxdistanceLIDAR_EEPROM = EEPROM.read(161);
+  if (maxdistanceLIDAR_EEPROM == 1) {
+    maxdistanceLIDAR = EEPROM.read(162);
+    Serial.print(F("Lidar Activation Distance from EEPROM : "));
+    Serial.println(maxdistanceLIDAR);
+  }
+#endif
+
+#ifdef GYRO
+  GYRO_Enabled_EEPROM = EEPROM.read(163);
+  if (GYRO_Enabled_EEPROM == 1) {
+    GYRO_Enabled = EEPROM.read(164);
+    Serial.print(F("GYRO Enabled from EEPROM : "));
+    if (GYRO_Enabled == 0) Serial.println(F("Disabled"));
+    if (GYRO_Enabled == 1) Serial.println(F("Enabled"));
+  }
+#endif
+
   Kp_EEPROM = EEPROM.read(171);
   if (Kp_EEPROM == 1) {
     Kp = EEPROM.read(170);
@@ -579,8 +616,8 @@ void Clear_EERPOM() {
   EEPROM.write(83, 0);   // Cancella attivazione lama ON/OFF
   EEPROM.write(85, 0);   // Cancella sensibilità batteria;
   EEPROM.write(87, 0);   // Alarm Actions 1-3
-  EEPROM.write(88, 0);   //
-  EEPROM.write(89, 0);   //
+  EEPROM.write(88, 0);   // Alarm Actions 2
+  EEPROM.write(89, 0);   // Alarm Actions 3
   EEPROM.write(90, 0);   // Cancella Paraurti anteriore
   EEPROM.write(94, 0);   // Cancella velocità Wheel Slow Speed LH
   EEPROM.write(96, 0);   // Cancella velocità Wheel Slow Speed RH
@@ -596,6 +633,9 @@ void Clear_EERPOM() {
   EEPROM.write(134, 0);  // Alarm Actions 4
   EEPROM.write(139, 0);  // Alarm Actions 5
   EEPROM.write(144, 0);  // Alarm Actions 6
+  EEPROM.write(159, 0);  // Cancella sensore RPLidar ON/OFF
+  EEPROM.write(161, 0);  // Resetta la massima distanza del Lidar.
+  EEPROM.write(163, 0);  // Cancella Gyro ON/OFF
   EEPROM.write(171, 0);  // Resetta Kp
   EEPROM.write(172, 0);  // Resetta Ki
   EEPROM.write(175, 0);  // Resetta Kd

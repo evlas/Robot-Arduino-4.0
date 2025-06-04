@@ -8,6 +8,7 @@ void Check_Sonar_Sensors() {
   digitalWrite(trigPin2, LOW);
   delayMicroseconds(5);
   digitalWrite(trigPin3, LOW);
+  delayMicroseconds(5);
 
   // Pings each sonar at a 15ms interval
 
@@ -20,28 +21,28 @@ void Check_Sonar_Sensors() {
 
 /* SONAR Function
 ************************************************************************************/
-// Function to Ping the Sonar calculate the distance from Object to the Sonars.
-// Distance calculated is printed to serial printer and displays X or _ on the LCD Screen
-// Distance calculated is then used for the object avoidance logic
-// Sonars used can be activated in the settings.
+// Funzione per inviare un segnale al sonar e calcolare la distanza tra l'oggetto e il sonar.
+// La distanza calcolata viene stampata su una stampante seriale e visualizzata con X o _ sullo schermo LCD.
+// La distanza calcolata viene quindi utilizzata per la logica di evitamento dell'oggetto.
+// I sonar utilizzati possono essere attivati ​​nelle impostazioni.
 
 int PingSonarX(int trigPinX, int echoPinX, int distanceX, long durationX, int sonarX, int LCDRow, int LCDColumn) {
   pinMode(trigPinX, OUTPUT);
   pinMode(echoPinX, INPUT);
-  //Sets the trigPin at High state for 10 micro secs sending a sound wave
+  //Imposta il trigPin allo stato alto per 10 micro secondi inviando un'onda sonora
   digitalWrite(trigPinX, HIGH);
   digitalWrite(trigPinX, LOW);
   delayMicroseconds(10);
 
-  /*Reads the echoPin for the bounced wave and records the time in microseconds*/
+  /*Legge l'echoPin per l'onda rimbalzata e registra il tempo in microsecondi*/
   durationX = pulseIn(echoPinX, HIGH);
 
-  /*Calculates the distance in cm based on the measured time*/
+  /*Calcola la distanza in cm in base al tempo misurato*/
   distanceX = durationX * 0.034 / 2;
   delay(5);
 
-  /* If a 0 distance is measured normally the Sonar ping has not been received.
-    distance is then set to 999cm so the missed ping is not seen as an object detected.*/
+  /* Se viene misurata una distanza pari a 0, il ping del sonar non è stato ricevuto.
+     La distanza viene quindi impostata a 999 cm, in modo che il ping mancante non venga visualizzato come un oggetto rilevato.*/
   if (distanceX == 0) {
     distanceX = 999;
     Serial.print(F("S"));
@@ -51,7 +52,7 @@ int PingSonarX(int trigPinX, int echoPinX, int distanceX, long durationX, int so
     Serial.print(F("|"));
   }
 
-  /*Prints the Sonar letter and distance measured on the serial Monitor*/
+  /*Stampa la lettera del sonar e la distanza misurata sul monitor seriale*/
   Serial.print(F("S"));
   Serial.print(sonarX);
   Serial.print(F(":"));
@@ -59,7 +60,7 @@ int PingSonarX(int trigPinX, int echoPinX, int distanceX, long durationX, int so
   Serial.print(F("cm"));
   Serial.print(F("/"));
 
-  /*If sonar distance is less than maximum distance then an object is registered to avoid*/
+  /*Se la distanza del sonar è inferiore alla distanza massima, viene registrato un oggetto da evitare*/
   if (distanceX <= maxdistancesonar) {
     //Prints that Sonar X has detected an object to the Mower LCD.
     lcd.setCursor(LCDRow, LCDColumn);  //sets location for text to be written
@@ -85,7 +86,7 @@ int PingSonarX(int trigPinX, int echoPinX, int distanceX, long durationX, int so
     }
   }
 
-  /*If sonar distance is greater than maximum distance then no object is registered to avoid*/
+  /*Se la distanza del sonar è maggiore della distanza massima, non viene registrato alcun oggetto da evitare*/
   if (distanceX > maxdistancesonar) {
     //Prints that the path of Sonar X is open.
     lcd.setCursor(LCDRow, LCDColumn);  //sets location for text to be written
@@ -105,7 +106,6 @@ int PingSonarX(int trigPinX, int echoPinX, int distanceX, long durationX, int so
     }
   }
 
-
   return distanceX;
-  return sonarX;
+//  return sonarX; //?????
 }

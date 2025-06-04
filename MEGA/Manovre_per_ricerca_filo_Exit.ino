@@ -1,4 +1,4 @@
-void Maneuver_Find_Wire_Track_Exit() {
+void Manouver_Find_Wire_Track_Exit() {
 
 
   Serial.println(F("Find Wire Track Function Activated"));
@@ -54,8 +54,7 @@ void Maneuver_Find_Wire_Track_Exit() {
           ADCMan.run();
           PrintBoundaryWireStatus();  // Prints of the status of the wire sensor readings.
           Serial.println("");
-          //if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();
-          if (WIFI_Enabled == 1) Get_WIFI_Commands();
+          if ((WIFI_Enabled == 1) && (Manual_Mode == 0)) Get_WIFI_Commands();
           if (Mower_Parked == 1) {
             Serial.println("Abort Wire Find");
             Abort_Wire_Find = 1;
@@ -109,8 +108,7 @@ void Maneuver_Find_Wire_Track_Exit() {
           //ADCMan.run();
           //PrintBoundaryWireStatus();                                                            // Prints of the status of the wire sensor readings.
           Serial.println("");
-          //if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();
-          if (WIFI_Enabled == 1) Get_WIFI_Commands();
+          if ((WIFI_Enabled == 1) && (Manual_Mode == 0)) Get_WIFI_Commands();
           if (Mower_Parked == 1) {
             Serial.println("Abort Wire Find");
             Abort_Wire_Find = 1;
@@ -126,8 +124,6 @@ void Maneuver_Find_Wire_Track_Exit() {
             delay(2000);
             cycle = Max_Cycle_Wire_Find;
           }
-
-
 
           if (cycle > Max_Cycle_Wire_Find) {  // Track forwards for Max_Cycle_Wire_Find_Fwd cycles
             No_Wire_Found_Fwd = 1;            // if mower is still tracking after Max_Cycle_Wire_Find_Fwd cycles then cancel the find.
@@ -205,8 +201,7 @@ void Maneuver_Find_Wire_Track_Exit() {
       Spin_Attempts_Exit = Spin_Attempts_Exit + 1;  // controlla che il tosaerba non si blocchi cercando di girare sul cavo e rimanga intrappolato in questo anello
       WIFI_Check_Up = WIFI_Check_Up + 1;
       if (WIFI_Check_Up = 20) {
-        //if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();
-        if (WIFI_Enabled == 1) Get_WIFI_Commands();
+        if ((WIFI_Enabled == 1) && (Manual_Mode == 0)) Get_WIFI_Commands();
         WIFI_Check_Up = 0;
       }
     }
@@ -230,19 +225,19 @@ void Maneuver_Find_Wire_Track_Exit() {
   }
   /*  
   // se è stata ricevuta un'interruzione o il tosaerba non gira nella direzione giusta sul cavo, ripeti il ciclo di ricerca del cavo.
-  if ((Abort_Wire_Find == 1) || (Spin_Attempts_Exit >= Max_Spin_Attempts_Exit))  {
+  //if ((Abort_Wire_Find == 1) || (Spin_Attempts_Exit >= Max_Spin_Attempts_Exit))  {
     Serial.println("Wire Find Aborted");
     lcd.clear();
     lcd.print("Trova Filo ABORT");
     delay(1000);
     Abort_Wire_Find = 0;
     SetPins_ToGoForwards();
-    Maneuver_Park_The_Mower();
+    //Manouver_Find_Wire_Track();
+   // Manouver_Park_The_Mower();
     }
 */
   if (No_Wire_Found_Fwd == 1) {
     Serial.println("Re-starting wire find");
     SetPins_ToGoForwards();
-    Maneuver_Find_Wire_Track();
   }
 }

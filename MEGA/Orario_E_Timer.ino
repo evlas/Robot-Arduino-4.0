@@ -45,19 +45,19 @@ void Activate_Alarms() {
         Blade_Override = 1;
         Exit_Zone = 1;
         Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_1_Action == 2) {
         Blade_Override = 1;
         Exit_Zone = 2;
         Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_1_Action == 3) {
         Blade_Override = 1;
         Exit_Zone = 3;
         Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
     }
   }
@@ -74,19 +74,19 @@ void Activate_Alarms() {
         Blade_Override = 1;
         Exit_Zone = 1;
         Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_2_Action == 2) {
         Blade_Override = 1;
         Exit_Zone = 2;
         Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_2_Action == 3) {
         Blade_Override = 1;
         Exit_Zone = 3;
         Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
     }
   }
@@ -101,19 +101,19 @@ void Activate_Alarms() {
         Blade_Override = 1;
         Exit_Zone = 1;
         Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_3_Action == 2) {
         Blade_Override = 1;
         Exit_Zone = 2;
         Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_3_Action == 3) {
         Blade_Override = 1;
         Exit_Zone = 3;
         Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
     }
   }
@@ -128,19 +128,19 @@ void Activate_Alarms() {
         Blade_Override = 1;
         Exit_Zone = 1;
         Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_4_Action == 2) {
         Blade_Override = 1;
         Exit_Zone = 2;
         Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_4_Action == 3) {
         Blade_Override = 1;
         Exit_Zone = 3;
         Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
     }
   }
@@ -155,19 +155,19 @@ void Activate_Alarms() {
         Blade_Override = 1;
         Exit_Zone = 1;
         Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_5_Action == 2) {
         Blade_Override = 1;
         Exit_Zone = 2;
         Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_5_Action == 3) {
         Blade_Override = 1;
         Exit_Zone = 3;
         Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
     }
   }
@@ -182,19 +182,19 @@ void Activate_Alarms() {
         Blade_Override = 1;
         Exit_Zone = 1;
         Track_Wire_Itterations = Track_Wire_Zone_1_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_6_Action == 2) {
         Blade_Override = 1;
         Exit_Zone = 2;
         Track_Wire_Itterations = Track_Wire_Zone_2_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
       if (Alarm_6_Action == 3) {
         Blade_Override = 1;
         Exit_Zone = 3;
         Track_Wire_Itterations = Track_Wire_Zone_3_Cycles;
-        Maneuver_Exit_To_Zone_X();
+        Manouver_Exit_To_Zone_X();
       }
     }
   }
@@ -210,8 +210,8 @@ void Check_Timed_Mow() {
       Serial.println(F("Timed Mow Complete"));
       delay(2000);
       //Insert action for Timed Mow Alarm Here
-      if (Use_Charging_Station == 1) Maneuver_Go_To_Charging_Station();   // Stops the mowing and sends the mower back to the charging station via the permieter wire
-      if (Use_Charging_Station == 0) Maneuver_Park_The_Mower_Low_Batt();  // Parks the mower with a low battery warning
+      if (Use_Charging_Station == 1) Manouver_Go_To_Charging_Station();   // Stops the mowing and sends the mower back to the charging station via the permieter wire
+      if (Use_Charging_Station == 0) Manouver_Park_The_Mower_Low_Batt();  // Parks the mower with a low battery warning
     }
   }
 }

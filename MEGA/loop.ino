@@ -12,7 +12,7 @@ void mower_loop() {
     Print_Time_On_LCD();
     Check_Membrane_Switch_Input_Docked();  // Controllare i pulsanti per eventuali input
     TestforBoundaryWire();                 // Il test è che il cavo perimetrale è sotto tensione
-    Maneuver_Dock_The_Mower();
+    Manouver_Dock_The_Mower();
     Print_Time_On_Serial();
     Display_Next_Alarm();
     Activate_Alarms();
@@ -26,7 +26,7 @@ void mower_loop() {
     Print_LCD_Info_Parked();               // Stampa le informazioni sullo schermo LCD
     Check_Membrane_Switch_Input_Parked();  // Controllare i pulsanti per eventuali input
     TestforBoundaryWire();
-    Maneuver_Park_The_Mower();
+    Manouver_Park_The_Mower();
   }
 
   // Il tosaerba è parcheggiato con batteria scarica e necessita di ricarica manuale
@@ -39,7 +39,7 @@ void mower_loop() {
   if (Mower_Error == 1) {
     Print_Mower_Error();  // Modalità di sicurezza in caso di smarrimento del tosaerba o in uno stato di errore
     Check_Membrane_Switch_Input_Parked();
-    Maneuver_Park_The_Mower();
+    Manouver_Park_The_Mower();
   }
   // Il tosaerba sta tagliando l'erba.
   if (Mower_Running == 1) {
@@ -56,12 +56,12 @@ void mower_loop() {
     if (Outside_Wire == 0) {
         Check_Sonar_Sensors();  // Se il tosaerba è il cavo perimetrale, controlla se i sonar non presentano ostacoli e stampa sul display LCD.
         if (Sonar_Hit == 0) {
-          Maneuver_Mow_The_Grass();  // Ingressi ai motori delle ruote/motori delle lame in base all'ambiente.
+          Manouver_Mow_The_Grass();  // Ingressi ai motori delle ruote/motori delle lame in base all'ambiente.
           Check_Bumper();            // Se il tagliaerba è il cavo perimetrale, controllare l'attivazione del paraurti.
         }
     }
-    if (((Outside_Wire == 1) || (Bumper == 1)) && (Loop_Cycle_Mowing > 0)) Maneuver_Turn_Around();  // Se il paraurti è attivato o il tosaerba è fuori dal cavo perimetrale, girarsi.
-    if ((Outside_Wire == 0) && (Sonar_Hit == 1)) Maneuver_Turn_Around_Sonar();                      // Se viene rilevato un colpo del sonar e il tosaerba è il cavo, aggirare l'ostacolo.
+    if (((Outside_Wire == 1) || (Bumper == 1)) && (Loop_Cycle_Mowing > 0)) Manouver_Turn_Around();  // Se il paraurti è attivato o il tosaerba è fuori dal cavo perimetrale, girarsi.
+    if ((Outside_Wire == 0) && (Sonar_Hit == 1)) Manouver_Turn_Around_Sonar();                      // Se viene rilevato un colpo del sonar e il tosaerba è il cavo, aggirare l'ostacolo.
     }
   }
   

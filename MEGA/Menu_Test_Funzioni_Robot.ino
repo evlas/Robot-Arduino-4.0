@@ -14,7 +14,7 @@ void Print_LCD_Menu_Tests(byte LCD_Menu_Tests) {
   if (LCD_Menu_Tests == 9) lcd.print(F("Test Vai a Casa"));
   if (LCD_Menu_Tests == 10) lcd.print(F("Test Paraurti"));
   if (LCD_Menu_Tests == 11) lcd.print(F("Test bloc ruote"));
-  if (LCD_Menu_Tests == 12) lcd.print(F("Spare 12"));
+  if (LCD_Menu_Tests == 12) lcd.print(F("Test RDLIDARc"));
   if (LCD_Menu_Tests == 13) lcd.print(F("Spare 13"));
   if (LCD_Menu_Tests == 14) lcd.print(F("BETA"));
   if (LCD_Menu_Tests == 15) lcd.print(F("Spare 15"));
@@ -301,8 +301,6 @@ void Activate_Menu_Option_Testing() {
     }
   }
 
-
-
   // Tests the compass direction finding of the mower when finding the wire.
   if (Menu_Mode_Selection == 9) {
     lcd.clear();
@@ -311,7 +309,7 @@ void Activate_Menu_Option_Testing() {
     Menu_Mode_Selection = 0;
     delay(3000);
     lcd.clear();
-    Maneuver_Go_To_Charging_Station();
+    Manouver_Go_To_Charging_Station();
   }
 
 
@@ -341,6 +339,64 @@ void Activate_Menu_Option_Testing() {
     Test_Wheel_Amps();
   }
 
+  if (Menu_Mode_Selection == 12) {
+    lcd.clear();
+    lcd.print("Test RPLidar");
+    lcd.setCursor(0, 1);
+    lcd.print("In corso...");
+    Serial.println(F("Test RPLidar Started"));
+    delay(1000);
+    lcd.clear();
+
+    Menu_Mode_Selection = 0;
+    Menu_Complete = false;
+
+    StartLidarMotor();
+    lidar.startScan();
+
+    unsigned long lastPrintTime = 0;
+
+    while (Menu_Complete == false) {
+      if (IS_OK(lidar.waitPoint())) {
+        long distance = lidar.getCurrentPoint().distance;
+        int angle = (int)(lidar.getCurrentPoint().angle) % 360;
+
+        if (millis() - lastPrintTime >= 500) {
+          lastPrintTime = millis();
+
+          lcd.setCursor(0, 0);
+          lcd.print("Dist:");
+          lcd.print(distance);
+          lcd.print("mm   ");  // Spazi extra per pulizia
+
+          lcd.setCursor(0, 1);
+          lcd.print("Ang: ");
+          lcd.print(angle);
+          lcd.print((char)223);
+          lcd.print("     ");
+
+          Serial.print(F("LIDAR -> Dist: "));
+          Serial.print(distance);
+          Serial.print(F(" mm | Angle: "));
+          Serial.println(angle);
+        }
+      }
+
+      Read_Membrane_Keys();
+      if (!Stop_Key_X) {
+        Serial.println(F("Stop key is pressed"));
+        Menu_Complete = true;
+        lcd.clear();
+        lcd.setCursor(0, 0);
+        lcd.print("Stop Test");
+        delay(2000);
+        lcd.clear();
+      }
+    }
+
+    lidar.stop();
+    StopLidarMotor();
+  }
 
   if (Menu_Mode_Selection == 14) {
     lcd.clear();

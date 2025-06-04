@@ -106,7 +106,7 @@ void Activate_Menu_Option_Parked() {
     lcd.print(F("Riparti tagliare"));
     Serial.println(F("Mower Starting"));
     delay(2000);
-    Maneuver_Start_Mower();  // Restarts the mower again from standing position
+    Manouver_Start_Mower();  // Restarts the mower again from standing position
     lcd.clear();
   }
 
@@ -119,7 +119,7 @@ void Activate_Menu_Option_Parked() {
       Menu_Mode_Selection = 0;  // Releases the loop in the membrane button section.
       delay(1000);
       lcd.clear();
-      Maneuver_Go_To_Charging_Station();
+      Manouver_Go_To_Charging_Station();
     }
     if (Use_Charging_Station == 0) {
       lcd.clear();
@@ -169,7 +169,7 @@ void Check_Membrane_Keys_Running() {
 
   Read_Membrane_Keys();
   if (!Stop_Key_X) {
-    Maneuver_Park_The_Mower();
+    Manouver_Park_The_Mower();
     Check_Membrane_Switch_Input_Parked();
     Menu_Mode_Selection = 0;
   }

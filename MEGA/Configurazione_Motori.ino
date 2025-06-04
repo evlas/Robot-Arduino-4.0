@@ -90,8 +90,8 @@ void Motor_Action_Go_Accel() {
     analogWrite(ENBPin, i);
 #endif
 #ifdef BRUSHLESS_TIPO1_MOTORS
-  analogWrite(PwmDXPin, i);  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
-  analogWrite(PwmSXPin, i);  // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
+    analogWrite(PwmDXPin, i);  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
+    analogWrite(PwmSXPin, i);  // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
 #endif
     delay(2);  // Prima impostato a 3
   }
@@ -154,8 +154,8 @@ void Motor_Action_Turn_Speed() {
     analogWrite(ENBPin, (PWM_MaxSpeed_LH - Turn_Adjust));  // Cambia il valore 0 in 10 o 20 per ridurre la velocità
 #endif
 #ifdef BRUSHLESS_TIPO1_MOTORS
-  analogWrite(PwmDXPin, (PWM_MaxSpeed_RH - Turn_Adjust));  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
-  analogWrite(PwmSXPin, (PWM_MaxSpeed_LH - Turn_Adjust));  // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
+    analogWrite(PwmDXPin, (PWM_MaxSpeed_RH - Turn_Adjust));  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
+    analogWrite(PwmSXPin, (PWM_MaxSpeed_LH - Turn_Adjust));  // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
 #endif
   }
 
@@ -312,8 +312,8 @@ void Motor_Action_Spin_Blades() {
     analogWrite(RPWM, PWM_Blade_Speed);
 #endif
 #ifdef BRUSHLESS_TIPO1_BLADES
-  digitalWrite(PwmBLPin, HIGH);
-  analogWrite(PwmBLPin, PWM_Blade_Speed);
+    digitalWrite(PwmBLPin, HIGH);
+    analogWrite(PwmBLPin, PWM_Blade_Speed);
 #endif
     delay(20);
     Serial.print(F("Blades:ON_|"));
@@ -360,7 +360,7 @@ void Motor_Action_Dynamic_PWM_Steering() {
 #endif
 #ifdef BRUSHLESS_TIPO1_MOTORS
   analogWrite(PwmDXPin, PWM_Right);  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
-  analogWrite(PwmSXPin, PWM_Left);  // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
+  analogWrite(PwmSXPin, PWM_Left);   // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
 #endif
   Serial.print(F("PWM_R:"));
   Serial.print(PWM_Right);
@@ -371,7 +371,7 @@ void Motor_Action_Dynamic_PWM_Steering() {
 }
 
 float targetHeading = 90.0;  // Direzione desiderata in gradi (può essere aggiornata dopo ogni manovra)
-
+/*
 // === PID BASSATO SULLA BUSSOLA ===
 void Controllo_PID_Bussola(float headingAttuale) {
   static float pid_error = 0, pid_lastError = 0, pid_integral = 0, pid_derivative = 0;
@@ -404,6 +404,47 @@ void Controllo_PID_Bussola(float headingAttuale) {
 #ifdef BRUSHLESS_TIPO1_MOTORS
   analogWrite(PwmDXPin, pwmRight);  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
   analogWrite(PwmSXPin, pwmLeft);  // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
+#endif
+  Serial.print(F("PID|H:"));
+  Serial.print(headingAttuale);
+  Serial.print(F("|Err:"));
+  Serial.println(pid_error);
+}
+*/
+
+// === PID BASSATO SUL GYRO ===
+void Controllo_PID_Gyro(float headingAttuale) {
+  static float pid_error = 0, pid_lastError = 0, pid_integral = 0, pid_derivative = 0;
+  int baseSpeed = 150;
+
+  pid_error = headingAttuale - targetHeading;
+  if (pid_error > 180) pid_error -= 360;
+  if (pid_error < -180) pid_error += 360;
+
+  pid_integral += pid_error;
+  pid_derivative = pid_error - pid_lastError;
+  pid_lastError = pid_error;
+
+  float correzione = Kp * pid_error + Ki * pid_integral + Kd * pid_derivative;
+
+  int pwmLeft = constrain(baseSpeed - correzione, 0, 255);
+  int pwmRight = constrain(baseSpeed + correzione, 0, 255);
+
+#ifdef I2C_MOTORS
+  Wire.beginTransmission(ADDR_DX_MOTOR);
+  Wire.write(pwmRight);
+  Wire.endTransmission();
+  Wire.beginTransmission(ADDR_SX_MOTOR);
+  Wire.write(pwmLeft);
+  Wire.endTransmission();
+#endif
+#ifdef BTS7960_MOTORS
+  analogWrite(ENAPin, pwmRight);
+  analogWrite(ENBPin, pwmLeft);
+#endif
+#ifdef BRUSHLESS_TIPO1_MOTORS
+  analogWrite(PwmDXPin, pwmRight);  // Velocità = 0-255  (255 è la velocità massima). La velocità è impostata nelle impostazioni
+  analogWrite(PwmSXPin, pwmLeft);   // AnaolgWrite invia segnali PWM Velocità = 0-255  (255 è la velocità massima)
 #endif
   Serial.print(F("PID|H:"));
   Serial.print(headingAttuale);

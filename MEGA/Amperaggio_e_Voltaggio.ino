@@ -8,8 +8,8 @@ void Process_Volt_Information() {
     Serial.print(F("|"));
     if (Low_Battery_Detected > Low_Battery_Instances_Chg) {
       Serial.println(F("Low Battery Detected"));
-      if (Use_Charging_Station == 1) Maneuver_Go_To_Charging_Station();   // Interrompe il taglio e rimanda il rasaerba alla stazione di ricarica tramite il cavo perimetrale
-      if (Use_Charging_Station == 0) Maneuver_Park_The_Mower_Low_Batt();  // Parcheggia il tosaerba con un avviso di batteria scarica
+      if (Use_Charging_Station == 1) Manouver_Go_To_Charging_Station();   // Interrompe il taglio e rimanda il rasaerba alla stazione di ricarica tramite il cavo perimetrale
+      if (Use_Charging_Station == 0) Manouver_Park_The_Mower_Low_Batt();  // Parcheggia il tosaerba con un avviso di batteria scarica
     }
   }
 
@@ -61,7 +61,7 @@ void Check_if_Docked() {
     lcd.print(F("BASE DI RICARICA"));  // Prints info to LCD display
     delay(2000);
     Mower_Docked = 1;
-    Maneuver_Dock_The_Mower();  // Spegne il rasaerba. E' pronto per la ricarica e il taglio di nuovo.
+    Manouver_Dock_The_Mower();  // Spegne il rasaerba. E' pronto per la ricarica e il taglio di nuovo.
     lcd.clear();
   }
   Serial.println("");

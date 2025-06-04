@@ -44,8 +44,8 @@ void Check_Wire_In_Out() {
 
   // Le opzioni vengono impostate in Mower Setup
   if (Outside_Wire_Count >= Outside_Wire_Count_Max) {
-    if (Action_On_Over_Wire_Count_Max == 1) Maneuver_Hibernate_Mower();               // Metti il ​​tosaerba a dormire e aspetta
-    if (Action_On_Over_Wire_Count_Max == 2) Maneuver_Outside_Wire_ReFind_Function();  // ritrova il giardino usando il sonar 1 e il rilevamento del filo
+    if (Action_On_Over_Wire_Count_Max == 1) Manouver_Hibernate_Mower();               // Metti il ​​tosaerba a dormire e aspetta
+    if (Action_On_Over_Wire_Count_Max == 2) Manouver_Outside_Wire_ReFind_Function();  // ritrova il giardino usando il sonar 1 e il rilevamento del filo
 
     if (Action_On_Over_Wire_Count_Max == 3) {  // prova a individuare il filo utilizzando la funzione di ricerca filo
       lcd.clear();
@@ -55,6 +55,7 @@ void Check_Wire_In_Out() {
       delay(2000);
       Outside_Wire_Count = 0;
       Specials_Find_Wire_Track();
+      if (WIFI_Enabled == 1) Get_WIFI_Commands();
       SetPins_ToGoBackwards();  // Imposta il tosaerba per tornare indietro
       Motor_Action_Go_Full_Speed();
       delay(300);  //Prima era 700 15/06/22
@@ -85,7 +86,7 @@ void Check_Wire_In_Out() {
       lcd.clear();
       // Print_Mower_Error();
       // Mower_Error = 1;
-      Maneuver_Park_The_Mower();  // Aggiunto il 17/06/2022
+      Manouver_Park_The_Mower();  // Aggiunto il 17/06/2022
       Serial.println("");
       Serial.println("Max refind tries exceeded - Parking the Mower");
       delay(2000);
@@ -126,7 +127,7 @@ void TestforBoundaryWire() {
     // Se il tosaerba non è agganciato alla base e non è parcheggiato, e rileva per troppo tempo il filo spento blocca il robot
     if ((Wire_Off > Count_Wire_Off) && (Mower_Docked == 0) && (Mower_Parked == 0)) {
       Serial.println(F("Wire Test Failed - Hibernating Mower"));
-      Maneuver_Hibernate_Mower();  // Send the mower to sleep
+      Manouver_Hibernate_Mower();  // Send the mower to sleep
     }
 
     Serial.print(F("Wire"));

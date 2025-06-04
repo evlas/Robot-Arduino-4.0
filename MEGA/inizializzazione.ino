@@ -2,6 +2,7 @@ void mower_setup() {
   Init_Serial();
   Init_Serial_1();
   Init_Serial_2();
+  Init_Serial_3();
   Init_I2C();
   Init_Ina226();
   Load_EEPROM();
@@ -28,6 +29,13 @@ void Init_Serial_1() {
 
 void Init_Serial_2() {
   if (WIFI_Enabled == true) Serial2.begin(9600);  // Se il Wi-Fi è attivo prepara la porta seriale 2 aperta per la comunicazione NodeMCU
+}
+
+void Init_Serial_3() {
+  if (RPLIDAR_Enabled == true) {
+    Serial3.begin(115200);  // Se il Lidar è attivo prepara la porta seriale 3 aperta per la comunicazione per RPLidar
+    lidar.begin(Serial3);
+  }
 }
 
 void Init_I2C() {
@@ -98,8 +106,9 @@ void Init_RTC() {
   if (Set_Time == 1) {
     Serial.print(F("Setting Time"));
     Set_Time_On_RTC();
+
+    DisplayTime();
   }  // avviare l'interfaccia I2C
-  DisplayTime();
   Serial.println("");
 }
 
@@ -109,18 +118,20 @@ void Init_Mower() {
   Setup_Compass();
   delay(100);
   Setup_Relays();
+  Setup_Membrane_Buttons();
+  Setup_Tip_Safety();
   Setup_Motor_DX_Pins();
   Setup_Motor_SX_Pins();
-  Setup_Motor_Pins();
-  Setup_Tip_Safety();
-  Setup_Membrane_Buttons();
+  Setup_Motor_BL_Pins();
   Setup_ADCMan();
   Setup_Check_Pattern_Mow();
+  Setup_LIDAR();
+  Setup_Gyro();    // Inizializzazione giroscopio
+  CalibraGyroZ();  // Calibrazione subito dopo
   if (Bumper_Activate_Frnt == true) Setup_Bumper_Bar();
 }
 
-
-void Setup_Motor_DX_Pins() {                                  //Modifica per driver motori nuovi
+void Setup_Motor_DX_Pins() {  //Modifica per driver motori nuovi
   Serial.println(F("Setup Motor DX Pins"));
 #ifdef BTS7960_MOTORS
   pinMode(IN1Pin, OUTPUT);
@@ -139,7 +150,7 @@ void Setup_Motor_DX_Pins() {                                  //Modifica per dri
 #endif
 }
 
-void Setup_Motor_SX_Pins() {                                 //Modifica per driver motori nuovi
+void Setup_Motor_SX_Pins() {  //Modifica per driver motori nuovi
   Serial.println(F("Setup Motor SX Pins"));
 #ifdef BTS7960_MOTORS
   pinMode(IN3Pin, OUTPUT);
@@ -158,7 +169,7 @@ void Setup_Motor_SX_Pins() {                                 //Modifica per driv
 #endif
 }
 
-void Setup_Motor_Pins() {
+void Setup_Motor_BL_Pins() {
   Serial.println(F("Setup Motor Pins"));
 #ifdef BTS7960_BLADES
   pinMode(L_EN, OUTPUT);
@@ -177,5 +188,19 @@ void Setup_Motor_Pins() {
 #endif
 }
 
+void Setup_LIDAR() {
+  Serial.print(F("LIDAR:ON|"));
+  pinMode(RPLIDAR_MOTOR, OUTPUT);  // set pin modes
+}
 
+void Setup_Gyro() {
+  if (GYRO_Enabled == 1) {
+    Serial.println("GYRO GY-521 Activated");
+    Wire.begin();
+    Wire.beginTransmission(MPU_addr);
+    Wire.write(0x6B);
+    Wire.write(0);
+    Wire.endTransmission(true);
+  }
+}
 

@@ -1,4 +1,4 @@
-void Maneuver_Find_Wire_Track() {
+void Manouver_Find_Wire_Track() {
 
   Serial.println(F("Find Wire Track Function Activated"));
   lcd.clear();
@@ -53,8 +53,7 @@ void Maneuver_Find_Wire_Track() {
           ADCMan.run();
           PrintBoundaryWireStatus();  // Prints of the status of the wire sensor readings.
           Serial.println("");
-          //if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();
-          if (WIFI_Enabled == 1) Get_WIFI_Commands();
+          if ((WIFI_Enabled == 1) && (Manual_Mode == 0)) Get_WIFI_Commands();
           if (Mower_Parked == 1) {
             Serial.println("Abort Wire Find");
             Abort_Wire_Find = 1;
@@ -98,8 +97,7 @@ void Maneuver_Find_Wire_Track() {
           ADCMan.run();
           PrintBoundaryWireStatus();  // Prints of the status of the wire sensor readings.
           Serial.println("");
-          //if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();
-          if (WIFI_Enabled == 1) Get_WIFI_Commands();
+          if ((WIFI_Enabled == 1) && (Manual_Mode == 0)) Get_WIFI_Commands();
           if (Mower_Parked == 1) {
             Serial.println("Abort Wire Find");
             Abort_Wire_Find = 1;
@@ -207,8 +205,7 @@ void Maneuver_Find_Wire_Track() {
       Spin_Attempts = Spin_Attempts + 1;  // controlla che il tosaerba non si blocchi cercando di girare sul cavo e rimanga intrappolato in questo anello
       WIFI_Check_Up = WIFI_Check_Up + 1;
       if (WIFI_Check_Up = 20) {
-        //if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();
-        if (WIFI_Enabled == 1) Get_WIFI_Commands();
+        if ((WIFI_Enabled == 1) && (Manual_Mode == 0)) Get_WIFI_Commands();
         WIFI_Check_Up = 0;
       }
     }
@@ -258,8 +255,8 @@ void Maneuver_Find_Wire_Track() {
     delay(1000);
     Abort_Wire_Find = 0;
     SetPins_ToGoForwards();
-    //Maneuver_Find_Wire_Track();
-    Maneuver_Park_The_Mower();
+    //Manouver_Find_Wire_Track();
+    Manouver_Park_The_Mower();
   }
 
   if (No_Wire_Found_Fwd == 1) {

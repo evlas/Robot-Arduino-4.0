@@ -28,6 +28,15 @@ AlarmId id;
 #include <DFRobot_QMC5883.h>
 DFRobot_QMC5883 compass;
 
+//Libreria RPLIDAR A1 M8
+#include <RPLidar.h>
+
+//Libreria Gyro MPU6050 GY-521
+#include <MPU6050.h>
+
+//Pin per RPLIDAR
+#define RPLIDAR_MOTOR 11  // Il pin PWM per il controllo della velocità del motore RPLIDAR (MOTOCTRL).
+
 //Pin di setup per Arduino MEGA
 
 //Perimeter Wire Pins
@@ -65,26 +74,26 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #ifdef BTS7960_MOTORS
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore DX
-#define ENAPin 2                // PIN L_EN + R_EN  
-#define IN1Pin 6                // PIN RPWM
-#define IN2Pin 7                // PIN LPWM 
+#define ENAPin 2  // PIN L_EN + R_EN
+#define IN1Pin 6  // PIN RPWM
+#define IN2Pin 7  // PIN LPWM
 //Motore SX
-#define ENBPin 3                // PIN L_EN + R_EN
-#define IN3Pin 5                // PIN LPWM
-#define IN4Pin 4                // PIN RPWM
+#define ENBPin 3  // PIN L_EN + R_EN
+#define IN3Pin 5  // PIN LPWM
+#define IN4Pin 4  // PIN RPWM
 #endif
 
 #define BRUSHLESS_TIPO1_MOTORS
 #ifdef BRUSHLESS_TIPO1_MOTORS
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore DX
-#define DirDXPin 6                // PIN Direction
-#define PwmDXPin 7                // PIN PWM
-#define PpmDXPin 2                // PIN PPM (Interrupt) 
+#define DirDXPin 6  // PIN Direction
+#define PwmDXPin 7  // PIN PWM
+#define PpmDXPin 2  // PIN PPM (Interrupt)
 //Motore SX
-#define DirSXPin 4                // PIN Direction
-#define PwmSXPin 5                // PIN PWM
-#define PpmSXPin 3                // PIN PPM       (Interrupt)
+#define DirSXPin 4  // PIN Direction
+#define PwmSXPin 5  // PIN PWM
+#define PpmSXPin 3  // PIN PPM       (Interrupt)
 #endif
 
 //#define I2C_MOTORS
@@ -109,8 +118,8 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 #ifdef BRUSHLESS_TIPO1_BLADES
 //Pin Setup for the wheel Motor Bridge Controller Configurazione dei pin per il controller dei driver motori
 //Motore Lama
-#define DirBLPin 9                // PIN Direction
-#define PwmBLPin 8                // PIN PWM
+#define DirBLPin 9  // PIN Direction
+#define PwmBLPin 8  // PIN PWM
 //#define PpmBLPin 10               // PIN PPM
 #endif
 
@@ -132,6 +141,24 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 INA226_WE ina226 = INA226_WE(ADDR_INA226);
 
 //Variabili globali
+
+//Variabili RPLIDAR
+// ===== DEFINIZIONI E VARIABILI GLOBALI =====
+#define ANGLE_RESOLUTION 180
+#define MAX_DISTANCE 120000  // Distanza massima teorica del LIDAR
+RPLidar lidar;
+int distanceMap[ANGLE_RESOLUTION];
+int angleAtMinDist = 0;
+
+//GY-521 GYRO
+bool GYRO_Heading_Locked = 0;
+int GYRO_Angle;
+const int MPU_addr = 0x69;
+int16_t GyZ;
+float Gyro_Heading = 0;  // globale
+float gyroZrate = 0;
+int gyroBias = 0;
+unsigned long lastTime = 0;
 
 //Variabili rilevazione filo perimetrale
 Perimeter perimeter;
@@ -381,6 +408,9 @@ int Wheel_Amp_Sensor_ON_EEPROM;
 int Max_Wheel_Amps_EEPROM;
 bool Attivazione_Encoder_Ruote_EEPROM;
 int Cycles_Max_EEPROM;
+bool RPLIDAR_Enabled_EEPROM;
+long maxdistanceLIDAR_EEPROM;
+bool GYRO_Enabled_EEPROM;
 int Kp_EEPROM;
 int Ki_EEPROM;
 int Kd_EEPROM;
@@ -393,48 +423,6 @@ int Wheel_Blocked_Count;
 
 int minVal = 265;
 int maxVal = 402;
-
-/* Descrizione di come vengono visualizzati i valori seguenti nella stampa del monitor seriale per il filo
-      funzione
-     (InMax)                   Wire = 0                 (OutMax)
-         |      (InMid)           |           (OutMid)     |
-         |--------|--------|------|------|--------|--------|
-         |        |        |      |      |        |        |
-                        (InMin)       (OutMin)
-  */
-
-// Valori di rilevamento filo
-/*Negative Values for In*/  // Questi valori si basano sul segnale ricevuto dal sensore a filo per il mio loop perimetrale
-int InMin = -100;           // Prima era -100
-int InMid = -200;           // Prima era -400
-int InMax = -1500;          // Il valore massimo del segnale ricevuto dal filo
-/*General Setup PID numbers for wire tracking*/
-float P = 1.26;   //EEPROM                     // Fattore di moltiplicazione per l'errore misurato al centro del filo. Se il movimento è a scatti durante il monitoraggio riduce il numero
-float D = 20;     // Valore di smorzamento per evitare che il rasaerba serpeggi sul cavo. Prima era a (50) 30/03/2024
-byte Scale = 36;  // Scala di stampa con tracciamento della linea del monitor seriale
-
-// Questi valori impostano la scala per la stampa del filo nel monitor seriale una volta tracciato
-int OutMin = 100;   // Prima era  100
-int OutMid = 200;   // Prima era  400
-int OutMax = 1500;  // Prima era  1500
-
-int Outside_Wire_Count_Max = 10;        // Se il tagliaerba è fuori dal cavo molte volte, il tagliaerba si ferma
-int Action_On_Over_Wire_Count_Max = 3;  // Imposta 1 per ibernare il tosaerba (spegnimento e arresto) Imposta 2 per ritrovare il giardino utilizzando la funzione di rilevamento del cavo e del sonar
-                                        // 3 per eseguire una funzione di ricerca del filo
-int Count_Wire_Off = 10;                // Numero di rilevazioni del filo spento per prcheggiare il robot
-
-bool Show_TX_Data = 0;  // Mostra i valori ricevuti dal Nano / NodeMCU nel monitor seriale
-
-
-//Funzione di rallentamento per curve strette
-bool Boost_Turn = 1;            // Attiva la funzione di rallentamento curve strette
-int Min_Track_PWM = 110;        // Prima era 180 - Quando il valore PWM è inferiore a questo il rasaerba rallenta per effettuare meglio la svolta
-int Hard_Track_Turn_Delay = 2;  // Prima era 10
-
-//Valori per rotazione uscita base e rientro
-int Max_Spin_Attempts = 150;      //Rotazione sul filo per ritorno alla base
-int Max_Spin_Attempts_Exit = 12;  //Rotazione sul filo per uscita dalla base
-
 
 /******************************************************************************************************************************************
 
@@ -452,14 +440,16 @@ int Max_Spin_Attempts_Exit = 12;  //Rotazione sul filo per uscita dalla base
 
 *******************************************************************************************************************************************/
 
-char Version[16] = "V1.1";
+char Version[16] = "V1.5";
 
 bool Cutting_Blades_Activate = 1;  // EEPROM            // Attiva le lame e il disco di taglio nel codice
 bool WIFI_Enabled = 1;             // EEPROM            // Attiva le funzioni Wi-Fi
 bool NANO_serial = 1;              // EEPROM            // Attiva le funzioni seriali per comuniare con NANO
-bool NANO_i2c = 0;                 // EEPROM            // Attiva le funzioni seriali per comuniare con NANO 
+bool NANO_i2c = 0;                 // EEPROM            // Attiva le funzioni seriali per comuniare con NANO
 bool INA226_Sensor = 0;            // EEPROM            // Attiva le funzioni del sensore di Tensione e Amperaggio a bordo
 bool Perimeter_Wire_Enabled = 1;   // EEPROM            // Attiva l'uso del cavo perimetrale perimetrale
+bool RPLIDAR_Enabled = 0;          // EEPROM            // Attiva le funzioni del Lidar
+                                   // Ancora in fase sperimentale lasciare a 0
 
 // Stazione Base
 bool Use_Charging_Station = 1;    //EEPROM            // 1 se si utilizza la stazione di docking/ricarica 0 in caso contrario
@@ -485,6 +475,9 @@ bool Compass_Activate = 1;              //EEPROM       // Accende la bussola (de
 bool Compass_Heading_Hold_Enabled = 1;  //EEPROM       // Attiva la funzione di mantenimento della direzione della bussola per mantenere il tosaerba dritto
 int Home_Wire_Compass_Heading = 100;    //EEPROM       // Direzione del tosaerba che cercherà per trovare il cavo una volta completata la falciatura.
 float CPower = 2;                       //EEPROM       // Ingrandimento della direzione verso PWM: forza con cui il tosaerba si corregge nella falciatura con bussola
+
+// Settaggi GYRO
+bool GYRO_Enabled = 1;  // EEPROM       // Abilita il GIROSCOPIO - Attiva automaticamente il mantenimento della rotta del GIROSCOPIO
 
 // Tipo di Falciatura
 int Pattern_Mow = 1;               //EEPROM       // 0 = OFF |  1 = Parallel (non lavora!!) | 3 = Spirale |
@@ -517,6 +510,10 @@ bool Sonar_2_Activate = 1;   //EEPROM            // Attiva (1) Disattiva (0) Son
 bool Sonar_3_Activate = 1;   //EEPROM            // Attiva (1) Disattiva (0) Sonar 3 DX
 int Max_Sonar_Hit = 1;       //EEPROM            // Numero massimo di letture sonar prima che l'oggetto venga scoperto
 long maxdistancesonar = 40;  //EEPROM            // Distanza in cm dal rasaerba alla quale si attiverà il sonar.
+
+// Sensore RPLidar
+long maxdistanceLIDAR = 400;  //EEPROM            // Distanza in mm dal rasaerba alla quale si attiverà il LIDAR.
+long minDistance = maxdistanceLIDAR;
 
 // Paraurti
 bool Bumper_Activate_Frnt = 1;  //EEPROM            // Attiva il paraurti anteriore
@@ -609,5 +606,50 @@ int Alarm_6_Action = 1;   //EEPROM            // Imposta le azioni da eseguire q
 
 byte Alarm_Second = 5;  // Secondi
 
+
+  /* Descrizione di come vengono visualizzati i valori seguenti nella stampa del monitor seriale per il filo
+      funzione
+     (InMax)                   Wire = 0                 (OutMax)
+         |      (InMid)           |           (OutMid)     |
+         |--------|--------|------|------|--------|--------|
+         |        |        |      |      |        |        |
+                        (InMin)       (OutMin)
+  */
+
+  // Valori di rilevamento filo
+    /*Negative Values for In*/                                     // Questi valori si basano sul segnale ricevuto dal sensore a filo per il mio loop perimetrale
+    int InMin = -100;                                              // Prima era -100
+    int InMid = -200;                                              // Prima era -400
+    int InMax = -1500;                                             // Il valore massimo del segnale ricevuto dal filo
+    /*General Setup PID numbers for wire tracking*/
+    float P               = 1.26;     //EEPROM                     // Fattore di moltiplicazione per l'errore misurato al centro del filo. Se il movimento è a scatti durante il monitoraggio riduce il numero
+    float D               = 20;                                    // Valore di smorzamento per evitare che il rasaerba serpeggi sul cavo. Prima era a (50) 30/03/2024 
+    byte Scale            = 36;                                    // Scala di stampa con tracciamento della linea del monitor seriale
+  
+    // Questi valori impostano la scala per la stampa del filo nel monitor seriale una volta tracciato
+    int OutMin = 100;                                              // Prima era  100
+    int OutMid = 200;                                              // Prima era  400
+    int OutMax = 1500;                                             // Prima era  1500
+
+    int Outside_Wire_Count_Max          = 10;                      // Se il tagliaerba è fuori dal cavo molte volte, il tagliaerba si ferma
+    int Action_On_Over_Wire_Count_Max   = 3;                       // Imposta 1 per ibernare il tosaerba (spegnimento e arresto) Imposta 2 per ritrovare il giardino utilizzando la funzione di rilevamento del cavo e del sonar
+                                                                   // 3 per eseguire una funzione di ricerca del filo
+    int Count_Wire_Off                  = 10;                      // Numero di rilevazioni del filo spento per prcheggiare il robot
+
+    bool Show_TX_Data                   = 0;                       // Mostra i valori ricevuti dal Nano / NodeMCU nel monitor seriale
+
+
+    //Funzione di rallentamento per curve strette
+    bool Boost_Turn                   = 1;                         // Attiva la funzione di rallentamento curve strette
+    int Min_Track_PWM                 = 110;                       // Prima era 180 - Quando il valore PWM è inferiore a questo il rasaerba rallenta per effettuare meglio la svolta
+    int Hard_Track_Turn_Delay         = 2;                         // Prima era 10
+
+
+    //Valori per rotazione uscita base e rientro
+    int Max_Spin_Attempts             = 150;                       //Rotazione sul filo per ritorno alla base
+    int Max_Spin_Attempts_Exit        = 12;                        //Rotazione sul filo per uscita dalla base
+
+
+/************************************************************************************************************/    
 
 #endif
